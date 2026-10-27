@@ -1,0 +1,54 @@
+# Herramientas {#sec-herramientas}
+
+Aquí puede descargar todas las herramientas del kit en su versión más reciente. El [Manual](manual.qmd) le indica cuándo usar cada una.
+
+| Herramienta | Ruta A · datos crudos | Ruta B · datos calculados |
+|----|:--:|:--:|
+| 1 · Referencia metodológica | Sí | Sí |
+| 2 · Plantillas de datos | Sí | Sí |
+| 3 · Aplicación de cálculo | No | Sí |
+| 4 · Catálogo de vocabulario | Sí | Sí |
+
+## Herramienta 1 · Referencia metodológica {#sec-h1}
+
+Qué estadístico anual, medida de dispersión, tipo de interpretación, línea base y variables de esfuerzo corresponden a cada indicador.
+
+[Leer en línea](referencia.qmd){.btn .btn-primary} [Descargar en Word](descargas/H1_referencia-metodologica.docx){.btn .btn-outline-primary download="H1_referencia-metodologica.docx"}
+
+## Herramienta 2 · Plantillas de datos {#sec-h2}
+
+Un solo Excel con cuatro hojas: diccionario_crudos y datos_crudos (Ruta A), y diccionario_calculados y datos_calculados (Ruta B). Cada hoja de datos viene con su diccionario, que describe cada columna.
+
+[Descargar Excel](descargas/H2_plantillas-datos.xlsx){.btn .btn-outline-primary download="H2_plantillas-datos.xlsx"}
+
+## Herramienta 3 · Aplicación de cálculo {#sec-h3}
+
+Calcula el valor anual de su indicador y su evaluación AVP, y genera el archivo .csv para Marine Manager y un reporte de revisión en PDF. Vea cómo usarla en el [paso 6B del Manual](manual.qmd#sec-ruta-b).
+
+**En línea (recomendado).** No necesita instalar nada: la aplicación corre en su navegador y sus archivos no se envían a ningún servidor.
+
+[Abrir la aplicación en línea](app-web/index.html){.btn .btn-primary target="_blank"}
+
+**En RStudio.** Descargue estos dos archivos y guárdelos en una misma carpeta. Luego abra app.R en RStudio y haga clic en "Run App".
+
+[Descargar app.R](descargas/app.R){.btn .btn-outline-primary download="app.R"} [Descargar Catálogo (.xlsx)](descargas/H4_catalogo-vocabulario.xlsx){.btn .btn-outline-primary download="H4_catalogo-vocabulario.xlsx"}
+
+**Para probarla.** Un archivo con datos ficticios para ver cómo funciona la aplicación antes de usar sus propios datos.
+
+[Descargar datos de ejemplo (.csv)](descargas/ejemplo_ficticio_SLE-01_cocos_island.csv){.btn .btn-outline-secondary download="ejemplo_ficticio_SLE-01_cocos_island.csv"}
+
+**Opcional: el código en R.** Para quien quiera revisar cómo se hacen los cálculos, paso a paso y comentado.
+
+[Leer el código en R](descargas/codigo-R_calculo-indicadores-sinGAMM.html){.btn .btn-outline-secondary target="_blank"}
+
+## Herramienta 4 · Catálogo de vocabulario {#sec-h4}
+
+Los nombres aceptados de especies, indicadores, áreas de estudio y medidas de dispersión. Úselo para escribir estos datos siempre igual en sus archivos.
+
+[Descargar Excel](descargas/H4_catalogo-vocabulario.xlsx){.btn .btn-outline-primary download="H4_catalogo-vocabulario.xlsx"}
+
+## Manual y presentación
+
+Para leer sin conexión o imprimir.
+
+[Manual en Word](descargas/Manual_proveedores_datos.docx){.btn .btn-outline-primary download="Manual_proveedores_datos.docx"} [Presentación en PDF](descargas/presentacion-kit.pdf){.btn .btn-outline-primary download="presentacion-kit.pdf"} [Presentación en PowerPoint](descargas/presentacion-kit.pptx){.btn .btn-outline-primary download="presentacion-kit.pptx"}

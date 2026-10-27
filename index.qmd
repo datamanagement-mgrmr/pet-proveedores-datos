@@ -1,0 +1,46 @@
+# Bienvenida {.unnumbered}
+
+Este sitio reúne todo lo que necesita para preparar y entregar sus datos al **Plan Regional de Monitoreo de Especies Prioritarias del Pacífico Este Tropical (PET)**. Con sus datos, MigraMar calcula y evalúa los indicadores del Plan y los publica en Marine Manager de Global Fishing Watch, siempre con el crédito a su institución.
+
+Aquí encontrará siempre la versión más actualizada del Manual y de las herramientas. Si descargó algún archivo antes, revise que coincida con la versión de este sitio.
+
+## Antes de empezar: la metodología del Plan
+
+La forma de calcular y evaluar los indicadores (línea base, percentiles y categorías del Ámbito de Variación Permisible) se describe en el capítulo de cálculos del Plan Regional de Monitoreo. Le recomendamos leerlo para entender la metodología antes de preparar sus datos.
+
+::: callout-warning
+## Pendiente
+
+El enlace al capítulo diagramado del Plan se agregará aquí próximamente.
+:::
+
+<!-- Cuando esté listo, reemplace el aviso anterior por un enlace, por ejemplo:
+[Leer el capítulo de cálculos del Plan](descargas/plan-monitoreo_capitulo-calculos.pdf){.btn .btn-primary target="_blank"}
+-->
+
+## Cómo usar este sitio
+
+| Capítulo | Para qué sirve |
+|----|----|
+| [Manual para proveedores de datos](manual.qmd) | Los 11 pasos, en 4 etapas, para preparar y entregar sus datos. Empiece aquí. |
+| [Referencia metodológica](referencia.qmd) | Los conceptos generales y el detalle exacto de su indicador: estadístico anual, dispersión, interpretación y línea base. |
+| [Herramientas](herramientas.qmd) | Descargue las plantillas, el catálogo y la aplicación de cálculo. |
+
+Hay dos formas de participar:
+
+-   **Ruta A · datos crudos:** usted entrega sus datos depurados y MigraMar calcula el indicador.
+-   **Ruta B · datos calculados:** usted calcula su indicador con la [aplicación de cálculo](manual.qmd#sec-ruta-b), que puede usar en línea sin instalar nada.
+
+El Manual le ayuda a decidir cuál le conviene.
+
+## Presentación introductoria
+
+Un resumen del kit en diapositivas, para quien prefiere verlo así antes de leer el Manual.
+
+<iframe src="descargas/presentacion-kit.pdf" class="visor-pdf" title="Presentación del kit de herramientas"></iframe>
+
+[Descargar en PDF](descargas/presentacion-kit.pdf){.btn .btn-outline-primary download="presentacion-kit.pdf"} [Descargar en PowerPoint](descargas/presentacion-kit.pptx){.btn .btn-outline-primary download="presentacion-kit.pptx"}
+
+## Contacto
+
+¿Tiene dudas? Escríbanos: no dude en contactarnos si algún paso no le queda claro.

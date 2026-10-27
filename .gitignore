@@ -1,0 +1,13 @@
+# R y RStudio
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Quarto
+/.quarto/
+**/*.quarto_ipynb
+
+# Archivos temporales de Office
+~$*

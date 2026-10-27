@@ -1,0 +1,157 @@
+# Referencia metodológica {#sec-referencia}
+
+*Herramienta 1 · Detalle metodológico por indicador · Versión del 26 de octubre de 2026*
+
+Este capítulo reúne, en un solo lugar, la referencia metodológica que necesita para preparar sus datos o configurar la [aplicación de cálculo](herramientas.qmd#sec-h3) (Herramienta 3). Se recomienda tenerlo a mano junto con el [Manual](manual.qmd): mientras el manual indica los pasos a seguir, esta referencia aporta el detalle metodológico específico de cada indicador.
+
+-   La **Parte 1** explica los conceptos generales: enfoques de evaluación, línea base, estadístico anual, medida de dispersión, interpretación y categorías AVP.
+-   La **Parte 2** le da los valores exactos para su indicador específico.
+
+## Parte 1 · Tabla de referencia general {#sec-parte1}
+
+::: callout-note
+Todo esto se contempla y automatiza en la aplicación de cálculo (Herramienta 3), que le recomendamos usar para aplicar a sus datos.
+:::
+
+### 1. Dos enfoques de evaluación
+
+| Enfoque | Descripción |
+|----|----|
+| **Ámbito de Variación Permisible (AVP)** | Herramienta de alerta temprana: compara el valor anual del indicador contra percentiles (P10, P25, P50, P75) calculados sobre una línea base histórica. Se usa cuando hay una línea base representativa de 5 o 10 años. Útil para indicadores con alta variabilidad y distribuciones no normales. |
+| **Modelos Aditivos Generalizados Mixtos (GAMM)** | Análisis de tendencia a largo plazo. Se aplica a indicadores con series \>10 años y ≥30-40 eventos de monitoreo, complementando el AVP. |
+
+### 2. Duración de la línea base y réplicas
+
+| Caso | Criterio |
+|----|----|
+| **Línea base de 5 años** | Para indicadores/especies con ≥20 eventos de monitoreo por año dentro de los primeros 5 años. |
+| **Línea base de 10 años** | Cuando no se alcanza el mínimo de 20 eventos de monitoreo por año en 5 años pero sí hay ≥10 años de datos (típico de indicadores de baja frecuencia, ej. 1 evento por temporada: anidación de tortugas marinas). |
+| **Si no se alcanza ningún umbral** | Se mantiene el cálculo del indicador anual simple hasta alcanzar el umbral mínimo requerido para construir la línea base. |
+
+### 3. Elección de estadístico anual
+
+| Estadístico | Cuándo se usa |
+|----|----|
+| **Mediana anual** | Indicadores con alta variabilidad natural, outliers frecuentes o distribuciones sesgadas (censos visuales, CPUE, BPUE, BRUVS, DOV). |
+| **Promedio anual** | Indicadores biométricos con variabilidad más estable (longitud, talla, peso). |
+| **Estimación / valor directo anual o por temporada** | Conteos únicos por temporada o salidas de modelos poblacionales (nidos de tortugas, hembras anidadoras, tamaño poblacional por CMR). |
+
+### 4. Medida de dispersión
+
+| Estadístico anual | Medida de dispersión |
+|----|----|
+| **Mediana anual** | Rango intercuartílico (RIC): P75 − P25 de las réplicas del año. |
+| **Promedio anual** | Desviación estándar (DE) de las réplicas del año. |
+| **Valor directo (sumatoria o valor único anual)** | No aplica: hay un solo valor por año, por lo que la dispersión se reporta como NA. |
+| **Salidas de modelos de captura-marca-recaptura** | Intervalo de confianza del 95 % (IC95) estimado por el propio modelo. |
+
+### 5. Tipos de interpretación {#sec-interpretacion}
+
+| Tipo | Significado |
+|----|----|
+| **Interpretación A** | Valores altos = condición favorable; valores bajos = alerta/deterioro. Aplica a la mayoría de los indicadores del Plan. |
+| **Interpretación B** | Valores altos = condición desfavorable (presión/impacto/riesgo); la lógica del semáforo se invierte. |
+
+### 6. Categorías de evaluación AVP
+
+::: {layout-ncol="2"}
+| Percentil (interpretación A) | Designación AVP |
+|----|----|
+| ≤ P10 | Crítico |
+| P10 \< valor ≤ P25 | Alerta |
+| P25 \< valor ≤ P50 | Estable |
+| P50 \< valor ≤ P75 | Bueno |
+| \> P75 | Muy bueno |
+
+| Percentil (interpretación B) | Designación AVP |
+|----|----|
+| \> P75 | Crítico |
+| P51 - P75 | Alerta |
+| P26 - P50 | Estable |
+| P11 - P25 | Bueno |
+| ≤ P10 | Muy bueno |
+:::
+
+### 7. Excepción metodológica
+
+Los indicadores basados en foto-identificación con modelos de **Captura-Marca-Recaptura** propios (ej. tamaño poblacional de tiburón ballena, abundancia por DPS de ballena jorobada) NO usan AVP ni GAMM: cuentan con sus propios modelos poblacionales (Cormack-Jolly-Seber, modelos de espacio de estados, CKMR) que ya estiman tamaño poblacional y tendencia.
+
+Comparaciones entre poblaciones no son posibles (ballenas, entre otros).
+
+### 8. Unidades poblacionales y etapas de vida
+
+Los indicadores de especies con unidades poblacionales definidas (por ejemplo, las poblaciones diferenciadas de ballena jorobada) solo se comparan dentro de su propia población. Estas unidades, geográficas o de individuos, se definen con expertos. Para algunas especies también se separa el uso de hábitat según la etapa de vida (juveniles o adultos).
+
+## Parte 2 · Lista de detalles metodológicos por indicador {#sec-parte2}
+
+Busque su especie y el código de su indicador en las tablas siguientes para conocer los valores exactos que le corresponden. También puede usar el buscador (arriba a la izquierda) con el código, por ejemplo *SLE-05*. La columna *Interpretación* se explica en la [Parte 1, sección 5](#sec-interpretacion).
+
+### Tiburón martillo
+
+| Código | Indicador · técnica | Variables de esfuerzo | Estadístico anual | Medida de dispersión | Interpretación | Línea base |
+|--------|----------------------|------------------|--------------|------------------|--------|------------|
+| **SLE-01** | Abundancia relativa pelágica · BRUVS | horas de grabación (hr) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **SLE-02** | Abundancia relativa bentónica · BRUVS | horas de grabación (hr) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **SLE-03** | Densidad poblacional · DOV | área muestreada (m²/ha) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **SLE-04** | Longitud total promedio · BRUVS | # individuos medidos | Promedio | Desviación estándar | A | 5 años |
+| **SLE-05** | SPUE · Buceo | # inmersiones | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **SLE-06** | CPUE · Pesca científica palangre fondo | anzuelos × horas (u otra unidad) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **SLE-07** | BPUE · Pesca cerco | # sets (lances) | Valor directo | Desviación estándar | B | 5 años |
+| **SLE-08** | Abundancia relativa · Cámaras sin carnada | horas de grabación (hr) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+
+### Tiburón ballena
+
+| Código | Indicador · técnica | Variables de esfuerzo | Estadístico anual | Medida de dispersión | Interpretación | Línea base |
+|--------|----------------------|------------------|--------------|------------------|--------|------------|
+| **RTY-01** | Tamaño poblacional · Foto-ID acuática | historia de captura + #fotos/#días | Valor directo (salida del modelo CMR) | Intervalo de confianza 95 % | A | No aplica (modelo poblacional propio) |
+| **RTY-02** | Tamaño poblacional (genético) · Buceo | perfiles genéticos / muestras de tejido | Valor directo (salida del modelo) | Intervalo de confianza 95 % | A | No aplica (modelo poblacional propio) |
+| **RTY-03** | SPUE · Buceo | # inmersiones | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **RTY-04** | Varamientos · Evidencias varamientos | año | Valor directo (conteo anual) | No aplica (NA) | B | 10 años (baja frecuencia de eventos) |
+| **RTY-05** | Densidad poblacional · Drones | km² muestreados | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **RTY-06** | N° de interacciones · Pesca cerco | # sets y/o # embarcaciones (según definición) | Valor directo | Desviación estándar | B | 5 años |
+
+### Tortuga verde
+
+| Código | Indicador · técnica | Variables de esfuerzo | Estadístico anual | Medida de dispersión | Interpretación | Línea base |
+|--------|----------------------|------------------|--------------|------------------|--------|------------|
+| **CMA-01** | N° de hembras · Monitoreo playa | implícito; establecer un mínimo, ej. noches/km patrullados | Valor directo (por temporada) | No aplica (NA) | A | 10 años (1 evento de monitoreo por temporada) |
+| **CMA-02** | N° de nidos · Monitoreo playa | implícito; establecer un mínimo, ej. noches/km patrullados | Valor directo (por temporada) | No aplica (NA) | A | 10 años (1 evento de monitoreo por temporada) |
+| **CMA-03** | N° de nidadas · Monitoreo playa | implícito; establecer un mínimo, ej. noches/km patrullados | Valor directo (por temporada) | No aplica (NA) | A | 10 años (1 evento de monitoreo por temporada) |
+| **CMA-04** | Tasa de crecimiento · Monitoreo playa; Captura en agua | No aplica | Promedio | Desviación estándar | A | 10 años (según diseño metodológico del indicador) |
+| **CMA-05** | SPUE · Buceo | # inmersiones | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **CMA-06** | BPUE · Pesca cerco | # sets (lances) | Valor directo | Desviación estándar | B | 5 años |
+
+### Bacalao de Galápagos
+
+| Código | Indicador · técnica | Variables de esfuerzo | Estadístico anual | Medida de dispersión | Interpretación | Línea base |
+|--------|----------------------|------------------|--------------|------------------|--------|------------|
+| **MOL-01** | SPUE · Buceo | # inmersiones | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **MOL-02** | Densidad poblacional · Buceo | área/longitud de transecto | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **MOL-03** | Abundancia relativa bentónica · BRUVS | horas de grabación (hr) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **MOL-04** | Abundancia relativa · Desembarques | pescador×día; viajes×días, lances u otra unidad | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **MOL-05** | Longitud total promedio · BRUVS | No aplica | Promedio | Desviación estándar | A | 5 años |
+
+### Ballena jorobada
+
+| Código | Indicador · técnica | Variables de esfuerzo | Estadístico anual | Medida de dispersión | Interpretación | Línea base |
+|--------|----------------------|------------------|--------------|------------------|--------|------------|
+| **MNO-01** | Abundancia · Foto-ID (avistamiento desde embarcación) | No aplica | Valor directo (salida del modelo CMR) | Intervalo de confianza 95 % | A | No aplica (modelo poblacional propio) |
+| **MNO-02** | Abundancia · Foto-ID (avistamiento desde embarcación) | No aplica | Valor directo (salida del modelo CMR) | Intervalo de confianza 95 % | A | No aplica (modelo poblacional propio) |
+| **MNO-03** | Abundancia · Foto-ID (avistamiento desde embarcación) | No aplica | Valor directo (salida del modelo CMR) | Intervalo de confianza 95 % | A | No aplica (modelo poblacional propio) |
+| **MNO-04** | Abundancia relativa · Conteo en bote turístico | horas (hr) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+
+### Atún aleta amarilla
+
+| Código | Indicador · técnica | Variables de esfuerzo | Estadístico anual | Medida de dispersión | Interpretación | Línea base |
+|--------|----------------------|------------------|--------------|------------------|--------|------------|
+| **THA-01** | Captura relativa · Pesca cerco | (implícito) | Valor directo anual | Por definir | Por definir | 5 años |
+| **THA-02** | Captura relativa · Pesca cerco | (implícito) | Valor directo anual | Por definir | A | 5 años |
+| **THA-03** | Captura relativa · Pesca cerco | (implícito) | Valor directo anual | Por definir | Por definir | 5 años |
+| **THA-04** | Captura por lance relativa · Pesca cerco | set (embebido en la definición) | Valor directo anual | Por definir | Por definir | 5 años |
+| **THA-05** | Captura por lance relativa · Pesca cerco | set (embebido en la definición) | Valor directo anual | Por definir | Por definir | 5 años |
+| **THA-06** | Captura por lance relativa · Pesca cerco | set (embebido en la definición) | Valor directo anual | Por definir | Por definir | 5 años |
+| **THA-07** | Talla relativa · Pesca cerco | (implícito) | Valor directo anual | Desviación estándar | Por definir | 5 años |
+| **THA-08** | Talla relativa · Pesca cerco | (implícito) | Valor directo anual | Desviación estándar | Por definir | 5 años |
+| **THA-09** | Talla relativa · Pesca cerco | (implícito) | Valor directo anual | Desviación estándar | Por definir | 5 años |
+| **THA-10** | Abundancia relativa · Desembarques | pescador×día; viajes×días, lances u otra unidad | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |
+| **THA-11** | Abundancia relativa · BRUVS | horas de grabación (hr) | Mediana | Rango intercuartílico (P75 − P25) | A | 5 años |

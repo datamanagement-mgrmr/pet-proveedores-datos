@@ -1,0 +1,20 @@
+# Genera las versiones en Word del Manual y de la Referencia metodológica
+# a partir de los mismos .qmd del sitio. Se ejecuta con: quarto render word
+project:
+  output-dir: ../descargas
+
+# Dirección del sitio publicado: los enlaces del Word apuntan aquí
+sitio: "https://datamanagement-mgrmr.github.io/pet-proveedores-datos/"
+
+lang: es
+format:
+  docx:
+    reference-doc: plantilla-estilos.docx
+    resource-path: [".", ".."]
+    fig-cap-location: bottom
+    toc: false
+filters:
+  - enlaces-sitio.lua
+crossref:
+  fig-title: "Fig."
+  fig-prefix: "Fig."

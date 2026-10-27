@@ -1,0 +1,55 @@
+project:
+  type: book
+  output-dir: docs
+  # Archivos que se copian tal cual al sitio publicado (no se procesan con R)
+  resources:
+    - descargas/*
+    - app-web/**
+    - .nojekyll
+  # Solo estas páginas forman el sitio
+  render:
+    - index.qmd
+    - manual.qmd
+    - referencia.qmd
+    - herramientas.qmd
+
+book:
+  title: "Kit de herramientas para proveedores de datos"
+  subtitle: "Plan Regional de Monitoreo de Especies Prioritarias del PET"
+  author: "MigraMar"
+  date: today
+  date-format: "D [de] MMMM [de] YYYY"
+  page-navigation: true
+  search: true
+  repo-url: https://github.com/datamanagement-mgrmr/pet-proveedores-datos
+  sidebar:
+    title: "Kit de herramientas para proveedores de datos"
+    logo: images/logos_organizaciones.png
+    pinned: true
+    align: center
+    style: "docked"
+    collapse-level: 1
+  chapters:
+    - index.qmd
+    - manual.qmd
+    - referencia.qmd
+    - herramientas.qmd
+
+lang: es
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-title: "En esta página"
+    number-sections: false
+    fig-cap-location: bottom
+    link-external-newwindow: true
+
+crossref:
+  chapters: false
+  fig-title: "Fig."
+  fig-prefix: "Fig."
+
+editor: visual
