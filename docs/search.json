@@ -1,0 +1,182 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Kit de herramientas para proveedores de datos",
+    "section": "",
+    "text": "Bienvenida\nEste sitio reúne todo lo que necesita para preparar y entregar sus datos al Plan Regional de Monitoreo de Especies Prioritarias del Pacífico Este Tropical (PET). Con sus datos, MigraMar calcula y evalúa los indicadores del Plan y los publica en Marine Manager de Global Fishing Watch, siempre con el crédito a su institución.\nAquí encontrará siempre la versión más actualizada del Manual y de las herramientas. Si descargó algún archivo antes, revise que coincida con la versión de este sitio.",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "index.html#antes-de-empezar-la-metodología-del-plan",
+    "href": "index.html#antes-de-empezar-la-metodología-del-plan",
+    "title": "Kit de herramientas para proveedores de datos",
+    "section": "Antes de empezar: la metodología del Plan",
+    "text": "Antes de empezar: la metodología del Plan\nLa forma de calcular y evaluar los indicadores (línea base, percentiles y categorías del Ámbito de Variación Permisible) se describe en el capítulo de cálculos del Plan Regional de Monitoreo. Le recomendamos leerlo para entender la metodología antes de preparar sus datos.\n\n\n\n\n\n\nAdvertenciaPendiente\n\n\n\nEl enlace al capítulo diagramado del Plan se agregará aquí próximamente.",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "index.html#cómo-usar-este-sitio",
+    "href": "index.html#cómo-usar-este-sitio",
+    "title": "Kit de herramientas para proveedores de datos",
+    "section": "Cómo usar este sitio",
+    "text": "Cómo usar este sitio\n\n\n\nCapítulo\nPara qué sirve\n\n\n\n\nManual para proveedores de datos\nLos 11 pasos, en 4 etapas, para preparar y entregar sus datos. Empiece aquí.\n\n\nReferencia metodológica\nLos conceptos generales y el detalle exacto de su indicador: estadístico anual, dispersión, interpretación y línea base.\n\n\nHerramientas\nDescargue las plantillas, el catálogo y la aplicación de cálculo.\n\n\n\nHay dos formas de participar:\n\nRuta A · datos crudos: usted entrega sus datos depurados y MigraMar calcula el indicador.\nRuta B · datos calculados: usted calcula su indicador con la aplicación de cálculo, que puede usar en línea sin instalar nada.\n\nEl Manual le ayuda a decidir cuál le conviene.",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "index.html#presentación-introductoria",
+    "href": "index.html#presentación-introductoria",
+    "title": "Kit de herramientas para proveedores de datos",
+    "section": "Presentación introductoria",
+    "text": "Presentación introductoria\nUn resumen del kit en diapositivas, para quien prefiere verlo así antes de leer el Manual.\n\n\nDescargar en PDF Descargar en PowerPoint",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "index.html#contacto",
+    "href": "index.html#contacto",
+    "title": "Kit de herramientas para proveedores de datos",
+    "section": "Contacto",
+    "text": "Contacto\n¿Tiene dudas? Escríbanos: no dude en contactarnos si algún paso no le queda claro.",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "manual.html",
+    "href": "manual.html",
+    "title": "Manual para proveedores de datos",
+    "section": "",
+    "text": "Etapa 1 · Antes de empezar\nPasos operativos · Versión del 27 de octubre de 2026\nEste manual resume, en pasos concretos, lo que debe hacer para entregarnos sus datos. Para el detalle completo de la metodología, consulte el Plan Regional de Monitoreo.\n1. Ubique la carpeta que MigraMar le compartió para entregar sus datos (su carpeta de recepción).\n2. Decida su ruta:\n3. Descargue de la Caja de herramientas lo que le corresponda (Fig. 1):",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual para proveedores de datos</span>"
+    ]
+  },
+  {
+    "objectID": "manual.html#etapa-1-antes-de-empezar",
+    "href": "manual.html#etapa-1-antes-de-empezar",
+    "title": "Manual para proveedores de datos",
+    "section": "",
+    "text": "Ruta A: usted entrega datos crudos (tal como los recolectó en campo, ya depurados y cumpliendo los requisitos del punto 4) y MigraMar calcula el indicador.\nRuta B: usted calcula su propio indicador, con la aplicación de cálculo que le facilita MigraMar o con su propio método, y entrega el resultado ya calculado.\n\n\n\n\n\n\n\n\n\n\nRuta A · datos crudos\nRuta B · datos calculados\n\n\n\n\nArchivo que entrega\nDatos crudos con columnas mínimas y filtradas para cada indicador (ver punto 4)\nDatos en formato de la Plantilla de datos calculados\n\n\nDiccionario de columnas\nSí, debe incluirlo (ver ejemplo en la Plantilla de datos)\nNo es necesario\n\n\nDebe usar la aplicación de cálculo (Herramienta 3)\nNo\nSí\n\n\nQuién calcula el indicador\nMigraMar, pero se generará un reporte que debe verificar antes de publicar en Marine Manager\nUsted\n\n\nQué herramientas requiero revisar\nHerramientas 1, 2 y 4\nHerramientas 1, 2, 3 y 4\n\n\n\n\n\nHerramienta 1: Referencia metodológica. Le dice qué especificaciones aplican a su indicador; la necesitará para completar sus datos y, si le corresponde, para configurar la aplicación de cálculo para su indicador específico.\nHerramienta 2: Plantillas de datos. Un solo Excel con las hojas diccionario_crudos, datos_crudos, diccionario_calculados y datos_calculados; útil para ambas rutas.\nHerramienta 3: Aplicación de cálculo. Solo Ruta B. Si le interesa revisar la programación, puede leer el código en R (opcional).\nHerramienta 4: Catálogo de vocabulario controlado. Siempre (nombres exactos de especie, indicador y sitio).\n\n\n\n\n\n\n\nFig. 1: Qué trae el kit de herramientas: el Manual y las cuatro herramientas que lo acompañan.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual para proveedores de datos</span>"
+    ]
+  },
+  {
+    "objectID": "manual.html#etapa-2-prepare-sus-datos",
+    "href": "manual.html#etapa-2-prepare-sus-datos",
+    "title": "Manual para proveedores de datos",
+    "section": "Etapa 2 · Prepare sus datos",
+    "text": "Etapa 2 · Prepare sus datos\n4. Prepare sus datos:\n\nProveer todo su historial de datos en un solo archivo por indicador y área de estudio acordado. Debe filtrar sus datos para incluir solamente los datos que fueron colectados año tras año de forma consistente y bajo un mismo estándar; por lo tanto, el archivo debe incluir solo el rango de años, las estaciones del año y los sitios acordados con MigraMar.\n\n5. Revise su archivo antes de continuar, independientemente de si toma la Ruta A o B:\n\n\n\n\n\n\nTipEn resumen\n\n\n\nUn archivo por indicador y área · una fila por réplica · solo los años, sitios y época acordados.\n\n\nContenido del archivo\n\nUn solo archivo por indicador y área de estudio, sin filas de otras especies, indicadores o áreas.\nUna fila por réplica, incluidas las réplicas en que la especie no se observó (valor 0).\nLos datos de todos los años se tomaron con el mismo método, en los mismos sitios y en la misma época, como se acordó con MigraMar.\nTiene el mínimo de réplicas por año que indica la Referencia metodológica (Herramienta 1) para su indicador.\nEstán todas las columnas obligatorias (Fig. 2 y hoja diccionario_crudos de la Herramienta 2), incluidos los datos del proveedor: institución propietaria y punto de contacto. Si no los tiene en el archivo, puede escribirlos en la aplicación.\n\nFormato\n\nArchivo .csv con una sola tabla y una sola fila de encabezado: sin celdas combinadas, filas de totales ni varias hojas.\nDecimales con punto, no con coma.\nDía, mes y año en columnas separadas.\nNombres de especie, indicador y sitio escritos siempre igual y como en el Catálogo de vocabulario (Herramienta 4).\n\nValores\n\nCada réplica tiene su esfuerzo registrado y mayor que 0, en los indicadores que aplique.\nLos valores están en las unidades que define el Plan y no hay valores imposibles.\nUna celda vacía significa “sin dato”; un 0 significa que se muestreó y no se observó la especie.\n\n\n\n\n\n\n\nFig. 2: Asegurando que tenga las columnas necesarias para estimar y evaluar su indicador.\n\n\n\n\n6A. Si entrega datos crudos (Ruta A)\n\nSu archivo puede tener todas las columnas adicionales que usted maneje normalmente. Solo necesitamos que especifique cuáles corresponden a las mínimas esperadas de la hoja datos_crudos (Herramienta 2); para esto use la última columna de la hoja diccionario_crudos.\nYa puede pasar a la Etapa 3: MigraMar calculará el indicador por usted.\n\n\n\n6B. Si calcula sus propios indicadores (Ruta B)\nLa aplicación permite:\n\nestimar el valor anual del indicador;\nevaluar el indicador respecto a la línea base, cuando aplique;\ngenerar un archivo .csv en el formato requerido para el Marine Manager de Global Fishing Watch;\ngenerar un reporte de revisión en PDF que muestra cómo se verá su indicador en Marine Manager.\n\nPara usar la aplicación de cálculo que le facilita MigraMar (Fig. 3):\ni) Abra la aplicación (Herramienta 3) de una de estas dos formas:\n\nEn línea, sin instalar nada (recomendado). La aplicación corre dentro de su navegador: los archivos que cargue no se envían a ningún servidor. La primera vez tarda entre 30 y 60 segundos en abrir.\nAbrir la aplicación en línea\nEn RStudio. Descargue el archivo app.R y el Catálogo de vocabulario desde Herramientas, guárdelos en una misma carpeta, abra app.R en RStudio y haga clic en “Run App”.\n\nii) Paso 1 · Datos: cargue su archivo de datos crudos (.csv). Si quiere probar la aplicación antes de usar sus datos, puede usar el archivo de ejemplo (datos ficticios).\niii) Pasos 2 y 3 · Columnas e Indicador: indique qué columna de su archivo corresponde a cada dato y complete las opciones de su indicador.\n\nUse la Referencia metodológica (Parte 2 · Lista de detalles metodológicos por indicador) para saber qué estadístico anual usar (mediana, promedio o valor directo), cuántos años de línea base necesita indicar y las demás especificaciones correspondientes a su indicador.\nLa especie, el indicador y el área se eligen de listas tomadas del Catálogo de vocabulario (Herramienta 4).\n\niv) Paso 4 · Resultados: haga clic en “Calcular indicador” y revise los mensajes, el gráfico y las tablas.\nv) Descargue el archivo .csv con sus resultados y el reporte de revisión en PDF. Revíselos y, si todo está bien, envíelos a MigraMar.\n\n\n\n\n\n\nFig. 3: Los cuatro pasos de la aplicación de cálculo: 1 Datos, 2 Columnas, 3 Indicador y 4 Resultados.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual para proveedores de datos</span>"
+    ]
+  },
+  {
+    "objectID": "manual.html#etapa-3-nombre-y-organice-sus-archivos",
+    "href": "manual.html#etapa-3-nombre-y-organice-sus-archivos",
+    "title": "Manual para proveedores de datos",
+    "section": "Etapa 3 · Nombre y organice sus archivos",
+    "text": "Etapa 3 · Nombre y organice sus archivos\n7. Nombre su archivo de datos así:\n\nFormato: [id-indicador]_[area]_[tipo]_[fecha-entrega].csv\nEjemplo: CMA-04_quinta-playa_calculado_2026-07-01.csv\ntipo = crudo o calculado · fecha-entrega = AAAA-MM-DD · use los valores del Catálogo de vocabulario para escribir la especie, el código de indicador y el área de estudio.\n\n8. Reúna el resto de lo que debe entregar, si aplica a su caso:\n\nLogo de su afiliación.\nProtocolos de campo o de procesamiento de datos (opcional, pero muy recomendado).\nArchivo shape o coordenadas del sitio de monitoreo.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual para proveedores de datos</span>"
+    ]
+  },
+  {
+    "objectID": "manual.html#etapa-4-entregue",
+    "href": "manual.html#etapa-4-entregue",
+    "title": "Manual para proveedores de datos",
+    "section": "Etapa 4 · Entregue",
+    "text": "Etapa 4 · Entregue\n9. Suba todo lo que preparó en la Etapa 3 a su carpeta de recepción.\n10. Notifique por correo a MigraMar que subió sus archivos.\n11. Espere el acuse de recibido. Si algo no cumple los estándares mínimos, se lo devolveremos indicando qué corregir.\n\n\n\n\n\n\nNota¿Dudas?\n\n\n\nContáctenos: no dude en escribirnos si algún paso no le queda claro.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual para proveedores de datos</span>"
+    ]
+  },
+  {
+    "objectID": "referencia.html",
+    "href": "referencia.html",
+    "title": "Referencia metodológica",
+    "section": "",
+    "text": "Parte 1 · Tabla de referencia general\nHerramienta 1 · Detalle metodológico por indicador · Versión del 26 de octubre de 2026\nEste capítulo reúne, en un solo lugar, la referencia metodológica que necesita para preparar sus datos o configurar la aplicación de cálculo (Herramienta 3). Se recomienda tenerlo a mano junto con el Manual: mientras el manual indica los pasos a seguir, esta referencia aporta el detalle metodológico específico de cada indicador.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Referencia metodológica</span>"
+    ]
+  },
+  {
+    "objectID": "referencia.html#sec-parte1",
+    "href": "referencia.html#sec-parte1",
+    "title": "Referencia metodológica",
+    "section": "",
+    "text": "Nota\n\n\n\nTodo esto se contempla y automatiza en la aplicación de cálculo (Herramienta 3), que le recomendamos usar para aplicar a sus datos.\n\n\n\n1. Dos enfoques de evaluación\n\n\n\n\n\n\n\nEnfoque\nDescripción\n\n\n\n\nÁmbito de Variación Permisible (AVP)\nHerramienta de alerta temprana: compara el valor anual del indicador contra percentiles (P10, P25, P50, P75) calculados sobre una línea base histórica. Se usa cuando hay una línea base representativa de 5 o 10 años. Útil para indicadores con alta variabilidad y distribuciones no normales.\n\n\nModelos Aditivos Generalizados Mixtos (GAMM)\nAnálisis de tendencia a largo plazo. Se aplica a indicadores con series &gt;10 años y ≥30-40 eventos de monitoreo, complementando el AVP.\n\n\n\n\n\n2. Duración de la línea base y réplicas\n\n\n\n\n\n\n\nCaso\nCriterio\n\n\n\n\nLínea base de 5 años\nPara indicadores/especies con ≥20 eventos de monitoreo por año dentro de los primeros 5 años.\n\n\nLínea base de 10 años\nCuando no se alcanza el mínimo de 20 eventos de monitoreo por año en 5 años pero sí hay ≥10 años de datos (típico de indicadores de baja frecuencia, ej. 1 evento por temporada: anidación de tortugas marinas).\n\n\nSi no se alcanza ningún umbral\nSe mantiene el cálculo del indicador anual simple hasta alcanzar el umbral mínimo requerido para construir la línea base.\n\n\n\n\n\n3. Elección de estadístico anual\n\n\n\n\n\n\n\nEstadístico\nCuándo se usa\n\n\n\n\nMediana anual\nIndicadores con alta variabilidad natural, outliers frecuentes o distribuciones sesgadas (censos visuales, CPUE, BPUE, BRUVS, DOV).\n\n\nPromedio anual\nIndicadores biométricos con variabilidad más estable (longitud, talla, peso).\n\n\nEstimación / valor directo anual o por temporada\nConteos únicos por temporada o salidas de modelos poblacionales (nidos de tortugas, hembras anidadoras, tamaño poblacional por CMR).\n\n\n\n\n\n4. Medida de dispersión\n\n\n\n\n\n\n\nEstadístico anual\nMedida de dispersión\n\n\n\n\nMediana anual\nRango intercuartílico (RIC): P75 − P25 de las réplicas del año.\n\n\nPromedio anual\nDesviación estándar (DE) de las réplicas del año.\n\n\nValor directo (sumatoria o valor único anual)\nNo aplica: hay un solo valor por año, por lo que la dispersión se reporta como NA.\n\n\nSalidas de modelos de captura-marca-recaptura\nIntervalo de confianza del 95 % (IC95) estimado por el propio modelo.\n\n\n\n\n\n5. Tipos de interpretación\n\n\n\n\n\n\n\nTipo\nSignificado\n\n\n\n\nInterpretación A\nValores altos = condición favorable; valores bajos = alerta/deterioro. Aplica a la mayoría de los indicadores del Plan.\n\n\nInterpretación B\nValores altos = condición desfavorable (presión/impacto/riesgo); la lógica del semáforo se invierte.\n\n\n\n\n\n6. Categorías de evaluación AVP\n\n\n\n\n\n\nPercentil (interpretación A)\nDesignación AVP\n\n\n\n\n≤ P10\nCrítico\n\n\nP10 &lt; valor ≤ P25\nAlerta\n\n\nP25 &lt; valor ≤ P50\nEstable\n\n\nP50 &lt; valor ≤ P75\nBueno\n\n\n&gt; P75\nMuy bueno\n\n\n\n\n\n\n\n\nPercentil (interpretación B)\nDesignación AVP\n\n\n\n\n&gt; P75\nCrítico\n\n\nP51 - P75\nAlerta\n\n\nP26 - P50\nEstable\n\n\nP11 - P25\nBueno\n\n\n≤ P10\nMuy bueno\n\n\n\n\n\n\n\n\n7. Excepción metodológica\nLos indicadores basados en foto-identificación con modelos de Captura-Marca-Recaptura propios (ej. tamaño poblacional de tiburón ballena, abundancia por DPS de ballena jorobada) NO usan AVP ni GAMM: cuentan con sus propios modelos poblacionales (Cormack-Jolly-Seber, modelos de espacio de estados, CKMR) que ya estiman tamaño poblacional y tendencia.\nComparaciones entre poblaciones no son posibles (ballenas, entre otros).\n\n\n8. Unidades poblacionales y etapas de vida\nLos indicadores de especies con unidades poblacionales definidas (por ejemplo, las poblaciones diferenciadas de ballena jorobada) solo se comparan dentro de su propia población. Estas unidades, geográficas o de individuos, se definen con expertos. Para algunas especies también se separa el uso de hábitat según la etapa de vida (juveniles o adultos).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Referencia metodológica</span>"
+    ]
+  },
+  {
+    "objectID": "referencia.html#sec-parte2",
+    "href": "referencia.html#sec-parte2",
+    "title": "Referencia metodológica",
+    "section": "Parte 2 · Lista de detalles metodológicos por indicador",
+    "text": "Parte 2 · Lista de detalles metodológicos por indicador\nBusque su especie y el código de su indicador en las tablas siguientes para conocer los valores exactos que le corresponden. También puede usar el buscador (arriba a la izquierda) con el código, por ejemplo SLE-05. La columna Interpretación se explica en la Parte 1, sección 5.\n\nTiburón martillo\n\n\n\n\n\n\n\n\n\n\n\n\nCódigo\nIndicador · técnica\nVariables de esfuerzo\nEstadístico anual\nMedida de dispersión\nInterpretación\nLínea base\n\n\n\n\nSLE-01\nAbundancia relativa pelágica · BRUVS\nhoras de grabación (hr)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nSLE-02\nAbundancia relativa bentónica · BRUVS\nhoras de grabación (hr)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nSLE-03\nDensidad poblacional · DOV\nárea muestreada (m²/ha)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nSLE-04\nLongitud total promedio · BRUVS\n# individuos medidos\nPromedio\nDesviación estándar\nA\n5 años\n\n\nSLE-05\nSPUE · Buceo\n# inmersiones\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nSLE-06\nCPUE · Pesca científica palangre fondo\nanzuelos × horas (u otra unidad)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nSLE-07\nBPUE · Pesca cerco\n# sets (lances)\nValor directo\nDesviación estándar\nB\n5 años\n\n\nSLE-08\nAbundancia relativa · Cámaras sin carnada\nhoras de grabación (hr)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\n\n\n\nTiburón ballena\n\n\n\n\n\n\n\n\n\n\n\n\nCódigo\nIndicador · técnica\nVariables de esfuerzo\nEstadístico anual\nMedida de dispersión\nInterpretación\nLínea base\n\n\n\n\nRTY-01\nTamaño poblacional · Foto-ID acuática\nhistoria de captura + #fotos/#días\nValor directo (salida del modelo CMR)\nIntervalo de confianza 95 %\nA\nNo aplica (modelo poblacional propio)\n\n\nRTY-02\nTamaño poblacional (genético) · Buceo\nperfiles genéticos / muestras de tejido\nValor directo (salida del modelo)\nIntervalo de confianza 95 %\nA\nNo aplica (modelo poblacional propio)\n\n\nRTY-03\nSPUE · Buceo\n# inmersiones\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nRTY-04\nVaramientos · Evidencias varamientos\naño\nValor directo (conteo anual)\nNo aplica (NA)\nB\n10 años (baja frecuencia de eventos)\n\n\nRTY-05\nDensidad poblacional · Drones\nkm² muestreados\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nRTY-06\nN° de interacciones · Pesca cerco\n# sets y/o # embarcaciones (según definición)\nValor directo\nDesviación estándar\nB\n5 años\n\n\n\n\n\nTortuga verde\n\n\n\n\n\n\n\n\n\n\n\n\nCódigo\nIndicador · técnica\nVariables de esfuerzo\nEstadístico anual\nMedida de dispersión\nInterpretación\nLínea base\n\n\n\n\nCMA-01\nN° de hembras · Monitoreo playa\nimplícito; establecer un mínimo, ej. noches/km patrullados\nValor directo (por temporada)\nNo aplica (NA)\nA\n10 años (1 evento de monitoreo por temporada)\n\n\nCMA-02\nN° de nidos · Monitoreo playa\nimplícito; establecer un mínimo, ej. noches/km patrullados\nValor directo (por temporada)\nNo aplica (NA)\nA\n10 años (1 evento de monitoreo por temporada)\n\n\nCMA-03\nN° de nidadas · Monitoreo playa\nimplícito; establecer un mínimo, ej. noches/km patrullados\nValor directo (por temporada)\nNo aplica (NA)\nA\n10 años (1 evento de monitoreo por temporada)\n\n\nCMA-04\nTasa de crecimiento · Monitoreo playa; Captura en agua\nNo aplica\nPromedio\nDesviación estándar\nA\n10 años (según diseño metodológico del indicador)\n\n\nCMA-05\nSPUE · Buceo\n# inmersiones\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nCMA-06\nBPUE · Pesca cerco\n# sets (lances)\nValor directo\nDesviación estándar\nB\n5 años\n\n\n\n\n\nBacalao de Galápagos\n\n\n\n\n\n\n\n\n\n\n\n\nCódigo\nIndicador · técnica\nVariables de esfuerzo\nEstadístico anual\nMedida de dispersión\nInterpretación\nLínea base\n\n\n\n\nMOL-01\nSPUE · Buceo\n# inmersiones\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nMOL-02\nDensidad poblacional · Buceo\nárea/longitud de transecto\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nMOL-03\nAbundancia relativa bentónica · BRUVS\nhoras de grabación (hr)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nMOL-04\nAbundancia relativa · Desembarques\npescador×día; viajes×días, lances u otra unidad\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nMOL-05\nLongitud total promedio · BRUVS\nNo aplica\nPromedio\nDesviación estándar\nA\n5 años\n\n\n\n\n\nBallena jorobada\n\n\n\n\n\n\n\n\n\n\n\n\nCódigo\nIndicador · técnica\nVariables de esfuerzo\nEstadístico anual\nMedida de dispersión\nInterpretación\nLínea base\n\n\n\n\nMNO-01\nAbundancia · Foto-ID (avistamiento desde embarcación)\nNo aplica\nValor directo (salida del modelo CMR)\nIntervalo de confianza 95 %\nA\nNo aplica (modelo poblacional propio)\n\n\nMNO-02\nAbundancia · Foto-ID (avistamiento desde embarcación)\nNo aplica\nValor directo (salida del modelo CMR)\nIntervalo de confianza 95 %\nA\nNo aplica (modelo poblacional propio)\n\n\nMNO-03\nAbundancia · Foto-ID (avistamiento desde embarcación)\nNo aplica\nValor directo (salida del modelo CMR)\nIntervalo de confianza 95 %\nA\nNo aplica (modelo poblacional propio)\n\n\nMNO-04\nAbundancia relativa · Conteo en bote turístico\nhoras (hr)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\n\n\n\nAtún aleta amarilla\n\n\n\n\n\n\n\n\n\n\n\n\nCódigo\nIndicador · técnica\nVariables de esfuerzo\nEstadístico anual\nMedida de dispersión\nInterpretación\nLínea base\n\n\n\n\nTHA-01\nCaptura relativa · Pesca cerco\n(implícito)\nValor directo anual\nPor definir\nPor definir\n5 años\n\n\nTHA-02\nCaptura relativa · Pesca cerco\n(implícito)\nValor directo anual\nPor definir\nA\n5 años\n\n\nTHA-03\nCaptura relativa · Pesca cerco\n(implícito)\nValor directo anual\nPor definir\nPor definir\n5 años\n\n\nTHA-04\nCaptura por lance relativa · Pesca cerco\nset (embebido en la definición)\nValor directo anual\nPor definir\nPor definir\n5 años\n\n\nTHA-05\nCaptura por lance relativa · Pesca cerco\nset (embebido en la definición)\nValor directo anual\nPor definir\nPor definir\n5 años\n\n\nTHA-06\nCaptura por lance relativa · Pesca cerco\nset (embebido en la definición)\nValor directo anual\nPor definir\nPor definir\n5 años\n\n\nTHA-07\nTalla relativa · Pesca cerco\n(implícito)\nValor directo anual\nDesviación estándar\nPor definir\n5 años\n\n\nTHA-08\nTalla relativa · Pesca cerco\n(implícito)\nValor directo anual\nDesviación estándar\nPor definir\n5 años\n\n\nTHA-09\nTalla relativa · Pesca cerco\n(implícito)\nValor directo anual\nDesviación estándar\nPor definir\n5 años\n\n\nTHA-10\nAbundancia relativa · Desembarques\npescador×día; viajes×días, lances u otra unidad\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años\n\n\nTHA-11\nAbundancia relativa · BRUVS\nhoras de grabación (hr)\nMediana\nRango intercuartílico (P75 − P25)\nA\n5 años",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Referencia metodológica</span>"
+    ]
+  },
+  {
+    "objectID": "herramientas.html",
+    "href": "herramientas.html",
+    "title": "Herramientas",
+    "section": "",
+    "text": "Herramienta 1 · Referencia metodológica\nAquí puede descargar todas las herramientas del kit en su versión más reciente. El Manual le indica cuándo usar cada una.\nQué estadístico anual, medida de dispersión, tipo de interpretación, línea base y variables de esfuerzo corresponden a cada indicador.\nLeer en línea Descargar en Word",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Herramientas</span>"
+    ]
+  },
+  {
+    "objectID": "herramientas.html#sec-h2",
+    "href": "herramientas.html#sec-h2",
+    "title": "Herramientas",
+    "section": "Herramienta 2 · Plantillas de datos",
+    "text": "Herramienta 2 · Plantillas de datos\nUn solo Excel con cuatro hojas: diccionario_crudos y datos_crudos (Ruta A), y diccionario_calculados y datos_calculados (Ruta B). Cada hoja de datos viene con su diccionario, que describe cada columna.\nDescargar Excel",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Herramientas</span>"
+    ]
+  },
+  {
+    "objectID": "herramientas.html#sec-h3",
+    "href": "herramientas.html#sec-h3",
+    "title": "Herramientas",
+    "section": "Herramienta 3 · Aplicación de cálculo",
+    "text": "Herramienta 3 · Aplicación de cálculo\nCalcula el valor anual de su indicador y su evaluación AVP, y genera el archivo .csv para Marine Manager y un reporte de revisión en PDF. Vea cómo usarla en el paso 6B del Manual.\nEn línea (recomendado). No necesita instalar nada: la aplicación corre en su navegador y sus archivos no se envían a ningún servidor.\nAbrir la aplicación en línea\nEn RStudio. Descargue estos dos archivos y guárdelos en una misma carpeta. Luego abra app.R en RStudio y haga clic en “Run App”.\nDescargar app.R Descargar Catálogo (.xlsx)\nPara probarla. Un archivo con datos ficticios para ver cómo funciona la aplicación antes de usar sus propios datos.\nDescargar datos de ejemplo (.csv)\nOpcional: el código en R. Para quien quiera revisar cómo se hacen los cálculos, paso a paso y comentado.\nLeer el código en R",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Herramientas</span>"
+    ]
+  },
+  {
+    "objectID": "herramientas.html#sec-h4",
+    "href": "herramientas.html#sec-h4",
+    "title": "Herramientas",
+    "section": "Herramienta 4 · Catálogo de vocabulario",
+    "text": "Herramienta 4 · Catálogo de vocabulario\nLos nombres aceptados de especies, indicadores, áreas de estudio y medidas de dispersión. Úselo para escribir estos datos siempre igual en sus archivos.\nDescargar Excel",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Herramientas</span>"
+    ]
+  },
+  {
+    "objectID": "herramientas.html#manual-y-presentación",
+    "href": "herramientas.html#manual-y-presentación",
+    "title": "Herramientas",
+    "section": "Manual y presentación",
+    "text": "Manual y presentación\nPara leer sin conexión o imprimir.\nManual en Word Presentación en PDF Presentación en PowerPoint",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Herramientas</span>"
+    ]
+  }
+]

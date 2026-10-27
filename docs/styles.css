@@ -1,0 +1,29 @@
+/* Ajustes de estilo del libro (tema base: cosmo) */
+
+/* Color institucional para títulos */
+h1, h2, h3, .sidebar-title { color: #1F4E5F; }
+
+/* Botones de descarga: separados y que bajen de línea en pantallas pequeñas */
+.btn { margin: 0.2rem 0.4rem 0.6rem 0; white-space: normal; }
+
+/* Visor de la presentación en la Bienvenida */
+.visor-pdf {
+  width: 100%;
+  aspect-ratio: 16 / 9.6;
+  border: 1px solid #d5e0e0;
+  border-radius: 6px;
+  margin: 0.5rem 0 0.75rem;
+}
+
+/* Casillas de la lista de revisión (paso 5 del Manual) */
+ul.task-list li { margin-bottom: 0.3rem; }
+
+/* Tablas de la Referencia: texto un poco más pequeño */
+.table { font-size: 0.92rem; }
+
+/* Que los códigos de indicador (ej. SLE-02) no se partan en dos líneas */
+td:first-child strong { white-space: nowrap; }
+
+
+/* Logos de las tres organizaciones en el menú lateral, a lo ancho */
+.sidebar-logo { max-height: none !important; width: 100%; }
