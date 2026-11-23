@@ -196,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>Herramienta 1 · Detalle metodológico por indicador · Versión del 26 de octubre de 2026</em></p>
+<p><em>Herramienta 1 · Detalle metodológico por indicador · Versión del 23 de noviembre de 2026</em></p>
 <p>Este capítulo reúne, en un solo lugar, la referencia metodológica que necesita para preparar sus datos o configurar la <a href="./herramientas.html#sec-h3">aplicación de cálculo</a> (Herramienta 3). Se recomienda tenerlo a mano junto con el <a href="./manual.html">Manual</a>: mientras el manual indica los pasos a seguir, esta referencia aporta el detalle metodológico específico de cada indicador.</p>
 <ul>
 <li>La <strong>Parte 1</strong> explica los conceptos generales: enfoques de evaluación, línea base, estadístico anual, medida de dispersión, interpretación y categorías AVP.</li>
@@ -237,7 +237,7 @@ Nota
 </tr>
 <tr class="even">
 <td><strong>Modelos Aditivos Generalizados Mixtos (GAMM)</strong></td>
-<td>Análisis de tendencia a largo plazo. Se aplica a indicadores con series &gt;10 años y ≥30-40 eventos de monitoreo, complementando el AVP.</td>
+<td>Análisis de tendencia a largo plazo. Se aplica a indicadores con series &gt;10 años y ≥30-40 réplicas independientes, complementando el AVP.</td>
 </tr>
 </tbody>
 </table>
@@ -258,11 +258,11 @@ Nota
 <tbody>
 <tr class="odd">
 <td><strong>Línea base de 5 años</strong></td>
-<td>Para indicadores/especies con ≥20 eventos de monitoreo por año dentro de los primeros 5 años.</td>
+<td>Para indicadores/especies con ≥20 réplicas independientes por año dentro de los primeros 5 años.</td>
 </tr>
 <tr class="even">
 <td><strong>Línea base de 10 años</strong></td>
-<td>Cuando no se alcanza el mínimo de 20 eventos de monitoreo por año en 5 años pero sí hay ≥10 años de datos (típico de indicadores de baja frecuencia, ej. 1 evento por temporada: anidación de tortugas marinas).</td>
+<td>Cuando no se alcanza el mínimo de 20 réplicas independientes por año en 5 años pero sí hay ≥10 años de datos (típico de indicadores de baja frecuencia, ej. 1 réplica por temporada: anidación de tortugas marinas).</td>
 </tr>
 <tr class="odd">
 <td><strong>Si no se alcanza ningún umbral</strong></td>
@@ -329,6 +329,10 @@ Nota
 <tr class="even">
 <td><strong>Salidas de modelos de captura-marca-recaptura</strong></td>
 <td>Intervalo de confianza del 95 % (IC95) estimado por el propio modelo.</td>
+</tr>
+<tr class="odd">
+<td><strong>Otra medida</strong></td>
+<td>Cuando ninguna de las anteriores aplica (por ejemplo, algunos indicadores de pesca). Se explica en la descripción del indicador.</td>
 </tr>
 </tbody>
 </table>
@@ -431,7 +435,7 @@ Nota
 </section>
 <section id="excepción-metodológica" class="level3">
 <h3 class="anchored" data-anchor-id="excepción-metodológica">7. Excepción metodológica</h3>
-<p>Los indicadores basados en foto-identificación con modelos de <strong>Captura-Marca-Recaptura</strong> propios (ej. tamaño poblacional de tiburón ballena, abundancia por DPS de ballena jorobada) NO usan AVP ni GAMM: cuentan con sus propios modelos poblacionales (Cormack-Jolly-Seber, modelos de espacio de estados, CKMR) que ya estiman tamaño poblacional y tendencia.</p>
+<p>Los indicadores basados en foto-identificación con modelos de <strong>Captura-Marca-Recaptura</strong> propios (ej. tamaño poblacional de tiburón ballena, abundancia de ballena jorobada en el Pacífico Sureste y Noreste) NO usan AVP ni GAMM: cuentan con sus propios modelos poblacionales (Cormack-Jolly-Seber, modelos de espacio de estados, CKMR) que ya estiman tamaño poblacional y tendencia.</p>
 <p>Comparaciones entre poblaciones no son posibles (ballenas, entre otros).</p>
 </section>
 <section id="unidades-poblacionales-y-etapas-de-vida" class="level3">
@@ -441,23 +445,25 @@ Nota
 </section>
 <section id="sec-parte2" class="level2">
 <h2 class="anchored" data-anchor-id="sec-parte2">Parte 2 · Lista de detalles metodológicos por indicador</h2>
-<p>Busque su especie y el código de su indicador en las tablas siguientes para conocer los valores exactos que le corresponden. También puede usar el buscador (arriba a la izquierda) con el código, por ejemplo <em>SLE-05</em>. La columna <em>Interpretación</em> se explica en la <a href="#sec-interpretacion">Parte 1, sección 5</a>.</p>
+<p>Busque su especie y el código de su indicador en las tablas siguientes para conocer los valores exactos que le corresponden. También puede usar el buscador (arriba a la izquierda) con el código, por ejemplo <em>SLE-05</em>. La <em>Unidad del indicador</em> es la que se muestra en el eje del gráfico en la plataforma. La columna <em>Interpretación</em> se explica en la <a href="#sec-interpretacion">Parte 1, sección 5</a>.</p>
 <section id="tiburón-martillo" class="level3">
 <h3 class="anchored" data-anchor-id="tiburón-martillo">Tiburón martillo</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 14%">
-<col style="width: 18%">
-<col style="width: 8%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Código</th>
 <th>Indicador · técnica</th>
+<th>Unidad del indicador</th>
 <th>Variables de esfuerzo</th>
 <th>Estadístico anual</th>
 <th>Medida de dispersión</th>
@@ -468,7 +474,8 @@ Nota
 <tbody>
 <tr class="odd">
 <td><strong>SLE-01</strong></td>
-<td>Abundancia relativa pelágica · BRUVS</td>
+<td>Abundancia relativa pelágica · BRUVS pelágicos</td>
+<td>Mediana MaxN por hora</td>
 <td>horas de grabación (hr)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -477,7 +484,8 @@ Nota
 </tr>
 <tr class="even">
 <td><strong>SLE-02</strong></td>
-<td>Abundancia relativa bentónica · BRUVS</td>
+<td>Abundancia relativa bentónica · BRUVS bentónicos</td>
+<td>Mediana MaxN por hora</td>
 <td>horas de grabación (hr)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -487,6 +495,7 @@ Nota
 <tr class="odd">
 <td><strong>SLE-03</strong></td>
 <td>Densidad poblacional · DOV</td>
+<td>Mediana del no. individuos por área muestreada</td>
 <td>área muestreada (m²/ha)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -495,7 +504,8 @@ Nota
 </tr>
 <tr class="even">
 <td><strong>SLE-04</strong></td>
-<td>Longitud total promedio · BRUVS</td>
+<td>Longitud total promedio · BRUVS pelágico o bentónico</td>
+<td>Longitud total promedio</td>
 <td># individuos medidos</td>
 <td>Promedio</td>
 <td>Desviación estándar</td>
@@ -505,6 +515,7 @@ Nota
 <tr class="odd">
 <td><strong>SLE-05</strong></td>
 <td>SPUE · Buceo</td>
+<td>Mediana de No.&nbsp;de individuos por inmersión</td>
 <td># inmersiones</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -514,6 +525,7 @@ Nota
 <tr class="even">
 <td><strong>SLE-06</strong></td>
 <td>CPUE · Pesca científica palangre fondo</td>
+<td>Mediana de no. Individuos capturados por unidad de esfuerzo</td>
 <td>anzuelos × horas (u otra unidad)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -523,6 +535,7 @@ Nota
 <tr class="odd">
 <td><strong>SLE-07</strong></td>
 <td>BPUE · Pesca cerco</td>
+<td>No.&nbsp;Individuos capturados incidentalmente por unidad de esfuerzo</td>
 <td># sets (lances)</td>
 <td>Valor directo</td>
 <td>Desviación estándar</td>
@@ -532,6 +545,7 @@ Nota
 <tr class="even">
 <td><strong>SLE-08</strong></td>
 <td>Abundancia relativa · Cámaras sin carnada</td>
+<td>Mediana MaxN por hora</td>
 <td>horas de grabación (hr)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -545,18 +559,20 @@ Nota
 <h3 class="anchored" data-anchor-id="tiburón-ballena">Tiburón ballena</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 14%">
-<col style="width: 18%">
-<col style="width: 8%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Código</th>
 <th>Indicador · técnica</th>
+<th>Unidad del indicador</th>
 <th>Variables de esfuerzo</th>
 <th>Estadístico anual</th>
 <th>Medida de dispersión</th>
@@ -568,6 +584,7 @@ Nota
 <tr class="odd">
 <td><strong>RTY-01</strong></td>
 <td>Tamaño poblacional · Foto-ID acuática</td>
+<td>No.&nbsp;Individuos</td>
 <td>historia de captura + #fotos/#días</td>
 <td>Valor directo (salida del modelo CMR)</td>
 <td>Intervalo de confianza 95 %</td>
@@ -577,6 +594,7 @@ Nota
 <tr class="even">
 <td><strong>RTY-02</strong></td>
 <td>Tamaño poblacional (genético) · Buceo</td>
+<td>Por definir</td>
 <td>perfiles genéticos / muestras de tejido</td>
 <td>Valor directo (salida del modelo)</td>
 <td>Intervalo de confianza 95 %</td>
@@ -586,6 +604,7 @@ Nota
 <tr class="odd">
 <td><strong>RTY-03</strong></td>
 <td>SPUE · Buceo</td>
+<td>Mediana de No.&nbsp;de individuos por inmersión</td>
 <td># inmersiones</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -595,6 +614,7 @@ Nota
 <tr class="even">
 <td><strong>RTY-04</strong></td>
 <td>Varamientos · Evidencias varamientos</td>
+<td>No.&nbsp;Individuos por año</td>
 <td>año</td>
 <td>Valor directo (conteo anual)</td>
 <td>No aplica (NA)</td>
@@ -604,6 +624,7 @@ Nota
 <tr class="odd">
 <td><strong>RTY-05</strong></td>
 <td>Densidad poblacional · Drones</td>
+<td>No.&nbsp;individuos por área muestreada</td>
 <td>km² muestreados</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -613,6 +634,7 @@ Nota
 <tr class="even">
 <td><strong>RTY-06</strong></td>
 <td>N° de interacciones · Pesca cerco</td>
+<td>No.&nbsp;Individuos que interactúan con embarcaciones de cerco</td>
 <td># sets y/o # embarcaciones (según definición)</td>
 <td>Valor directo</td>
 <td>Desviación estándar</td>
@@ -626,18 +648,20 @@ Nota
 <h3 class="anchored" data-anchor-id="tortuga-verde">Tortuga verde</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 14%">
-<col style="width: 18%">
-<col style="width: 8%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Código</th>
 <th>Indicador · técnica</th>
+<th>Unidad del indicador</th>
 <th>Variables de esfuerzo</th>
 <th>Estadístico anual</th>
 <th>Medida de dispersión</th>
@@ -649,33 +673,37 @@ Nota
 <tr class="odd">
 <td><strong>CMA-01</strong></td>
 <td>N° de hembras · Monitoreo playa</td>
+<td>Número de hembras</td>
 <td>implícito; establecer un mínimo, ej. noches/km patrullados</td>
 <td>Valor directo (por temporada)</td>
 <td>No aplica (NA)</td>
 <td>A</td>
-<td>10 años (1 evento de monitoreo por temporada)</td>
+<td>10 años (1 réplica independiente por temporada)</td>
 </tr>
 <tr class="even">
 <td><strong>CMA-02</strong></td>
 <td>N° de nidos · Monitoreo playa</td>
+<td>Número de nidos</td>
 <td>implícito; establecer un mínimo, ej. noches/km patrullados</td>
 <td>Valor directo (por temporada)</td>
 <td>No aplica (NA)</td>
 <td>A</td>
-<td>10 años (1 evento de monitoreo por temporada)</td>
+<td>10 años (1 réplica independiente por temporada)</td>
 </tr>
 <tr class="odd">
 <td><strong>CMA-03</strong></td>
 <td>N° de nidadas · Monitoreo playa</td>
+<td>Número de nidadas</td>
 <td>implícito; establecer un mínimo, ej. noches/km patrullados</td>
 <td>Valor directo (por temporada)</td>
 <td>No aplica (NA)</td>
 <td>A</td>
-<td>10 años (1 evento de monitoreo por temporada)</td>
+<td>10 años (1 réplica independiente por temporada)</td>
 </tr>
 <tr class="even">
 <td><strong>CMA-04</strong></td>
 <td>Tasa de crecimiento · Monitoreo playa; Captura en agua</td>
+<td>Promedio de tasa de crecimiento</td>
 <td>No aplica</td>
 <td>Promedio</td>
 <td>Desviación estándar</td>
@@ -685,6 +713,7 @@ Nota
 <tr class="odd">
 <td><strong>CMA-05</strong></td>
 <td>SPUE · Buceo</td>
+<td>No.&nbsp;de individuos por inmersión</td>
 <td># inmersiones</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -694,6 +723,7 @@ Nota
 <tr class="even">
 <td><strong>CMA-06</strong></td>
 <td>BPUE · Pesca cerco</td>
+<td>No.&nbsp;Individuos capturados incidentalmente por unidad de esfuerzo</td>
 <td># sets (lances)</td>
 <td>Valor directo</td>
 <td>Desviación estándar</td>
@@ -707,18 +737,20 @@ Nota
 <h3 class="anchored" data-anchor-id="bacalao-de-galápagos">Bacalao de Galápagos</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 14%">
-<col style="width: 18%">
-<col style="width: 8%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Código</th>
 <th>Indicador · técnica</th>
+<th>Unidad del indicador</th>
 <th>Variables de esfuerzo</th>
 <th>Estadístico anual</th>
 <th>Medida de dispersión</th>
@@ -730,6 +762,7 @@ Nota
 <tr class="odd">
 <td><strong>MOL-01</strong></td>
 <td>SPUE · Buceo</td>
+<td>No.&nbsp;de individuos por hora</td>
 <td># inmersiones</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -739,6 +772,7 @@ Nota
 <tr class="even">
 <td><strong>MOL-02</strong></td>
 <td>Densidad poblacional · Buceo</td>
+<td>No.&nbsp;individuos / área muestreada</td>
 <td>área/longitud de transecto</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -747,7 +781,8 @@ Nota
 </tr>
 <tr class="odd">
 <td><strong>MOL-03</strong></td>
-<td>Abundancia relativa bentónica · BRUVS</td>
+<td>Abundancia relativa bentónica · BRUVS bentónicos</td>
+<td>MaxN por hora</td>
 <td>horas de grabación (hr)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -757,6 +792,7 @@ Nota
 <tr class="even">
 <td><strong>MOL-04</strong></td>
 <td>Abundancia relativa · Desembarques</td>
+<td>Kilogramos por unidad de esfuerzo</td>
 <td>pescador×día; viajes×días, lances u otra unidad</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -765,7 +801,8 @@ Nota
 </tr>
 <tr class="odd">
 <td><strong>MOL-05</strong></td>
-<td>Longitud total promedio · BRUVS</td>
+<td>Longitud total promedio · BRUVS bentónicos</td>
+<td>Longitud total promedio</td>
 <td>No aplica</td>
 <td>Promedio</td>
 <td>Desviación estándar</td>
@@ -779,18 +816,20 @@ Nota
 <h3 class="anchored" data-anchor-id="ballena-jorobada">Ballena jorobada</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 14%">
-<col style="width: 18%">
-<col style="width: 8%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Código</th>
 <th>Indicador · técnica</th>
+<th>Unidad del indicador</th>
 <th>Variables de esfuerzo</th>
 <th>Estadístico anual</th>
 <th>Medida de dispersión</th>
@@ -802,24 +841,7 @@ Nota
 <tr class="odd">
 <td><strong>MNO-01</strong></td>
 <td>Abundancia · Foto-ID (avistamiento desde embarcación)</td>
-<td>No aplica</td>
-<td>Valor directo (salida del modelo CMR)</td>
-<td>Intervalo de confianza 95 %</td>
-<td>A</td>
-<td>No aplica (modelo poblacional propio)</td>
-</tr>
-<tr class="even">
-<td><strong>MNO-02</strong></td>
-<td>Abundancia · Foto-ID (avistamiento desde embarcación)</td>
-<td>No aplica</td>
-<td>Valor directo (salida del modelo CMR)</td>
-<td>Intervalo de confianza 95 %</td>
-<td>A</td>
-<td>No aplica (modelo poblacional propio)</td>
-</tr>
-<tr class="odd">
-<td><strong>MNO-03</strong></td>
-<td>Abundancia · Foto-ID (avistamiento desde embarcación)</td>
+<td>No.&nbsp;Individuos</td>
 <td>No aplica</td>
 <td>Valor directo (salida del modelo CMR)</td>
 <td>Intervalo de confianza 95 %</td>
@@ -829,31 +851,45 @@ Nota
 <tr class="even">
 <td><strong>MNO-04</strong></td>
 <td>Abundancia relativa · Conteo en bote turístico</td>
+<td>No.&nbsp;individuos avistado / esfuerzo</td>
 <td>horas (hr)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
 <td>A</td>
 <td>5 años</td>
 </tr>
+<tr class="odd">
+<td><strong>MNO-05</strong></td>
+<td>Abundancia · Foto-ID (avistamiento desde embarcación)</td>
+<td>No.&nbsp;Individuos</td>
+<td>No aplica</td>
+<td>Valor directo (salida del modelo CMR)</td>
+<td>Intervalo de confianza 95 %</td>
+<td>A</td>
+<td>No aplica (modelo poblacional propio)</td>
+</tr>
 </tbody>
 </table>
+<p>MNO-05 (Pacífico Noreste) reúne los antiguos indicadores MNO-02 (DPS Centroamérica) y MNO-03 (DPS México).</p>
 </section>
 <section id="atún-aleta-amarilla" class="level3">
 <h3 class="anchored" data-anchor-id="atún-aleta-amarilla">Atún aleta amarilla</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 14%">
-<col style="width: 18%">
-<col style="width: 8%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Código</th>
 <th>Indicador · técnica</th>
+<th>Unidad del indicador</th>
 <th>Variables de esfuerzo</th>
 <th>Estadístico anual</th>
 <th>Medida de dispersión</th>
@@ -865,60 +901,67 @@ Nota
 <tr class="odd">
 <td><strong>THA-01</strong></td>
 <td>Captura relativa · Pesca cerco</td>
+<td>Captura relativa en peso</td>
 <td>(implícito)</td>
 <td>Valor directo anual</td>
-<td>Por definir</td>
+<td>Otro</td>
 <td>Por definir</td>
 <td>5 años</td>
 </tr>
 <tr class="even">
 <td><strong>THA-02</strong></td>
 <td>Captura relativa · Pesca cerco</td>
+<td>Captura relativa en peso</td>
 <td>(implícito)</td>
 <td>Valor directo anual</td>
-<td>Por definir</td>
+<td>Otro</td>
 <td>A</td>
 <td>5 años</td>
 </tr>
 <tr class="odd">
 <td><strong>THA-03</strong></td>
 <td>Captura relativa · Pesca cerco</td>
+<td>Captura relativa en peso</td>
 <td>(implícito)</td>
 <td>Valor directo anual</td>
-<td>Por definir</td>
+<td>Otro</td>
 <td>Por definir</td>
 <td>5 años</td>
 </tr>
 <tr class="even">
 <td><strong>THA-04</strong></td>
 <td>Captura por lance relativa · Pesca cerco</td>
+<td>Captura relativa por lance</td>
 <td>set (embebido en la definición)</td>
 <td>Valor directo anual</td>
-<td>Por definir</td>
+<td>Otro</td>
 <td>Por definir</td>
 <td>5 años</td>
 </tr>
 <tr class="odd">
 <td><strong>THA-05</strong></td>
 <td>Captura por lance relativa · Pesca cerco</td>
+<td>Captura relativa por lance</td>
 <td>set (embebido en la definición)</td>
 <td>Valor directo anual</td>
-<td>Por definir</td>
+<td>Otro</td>
 <td>Por definir</td>
 <td>5 años</td>
 </tr>
 <tr class="even">
 <td><strong>THA-06</strong></td>
 <td>Captura por lance relativa · Pesca cerco</td>
+<td>Captura relativa por lance</td>
 <td>set (embebido en la definición)</td>
 <td>Valor directo anual</td>
-<td>Por definir</td>
+<td>Otro</td>
 <td>Por definir</td>
 <td>5 años</td>
 </tr>
 <tr class="odd">
 <td><strong>THA-07</strong></td>
 <td>Talla relativa · Pesca cerco</td>
+<td>Talla relativa promedio (cm)</td>
 <td>(implícito)</td>
 <td>Valor directo anual</td>
 <td>Desviación estándar</td>
@@ -928,6 +971,7 @@ Nota
 <tr class="even">
 <td><strong>THA-08</strong></td>
 <td>Talla relativa · Pesca cerco</td>
+<td>Talla relativa promedio (cm)</td>
 <td>(implícito)</td>
 <td>Valor directo anual</td>
 <td>Desviación estándar</td>
@@ -937,6 +981,7 @@ Nota
 <tr class="odd">
 <td><strong>THA-09</strong></td>
 <td>Talla relativa · Pesca cerco</td>
+<td>Talla relativa promedio (cm)</td>
 <td>(implícito)</td>
 <td>Valor directo anual</td>
 <td>Desviación estándar</td>
@@ -946,6 +991,7 @@ Nota
 <tr class="even">
 <td><strong>THA-10</strong></td>
 <td>Abundancia relativa · Desembarques</td>
+<td>kg de individuos desembarcados / por unidad de esfuerzo</td>
 <td>pescador×día; viajes×días, lances u otra unidad</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
@@ -954,7 +1000,8 @@ Nota
 </tr>
 <tr class="odd">
 <td><strong>THA-11</strong></td>
-<td>Abundancia relativa · BRUVS</td>
+<td>Abundancia relativa · BRUVS pelágicos</td>
+<td>Mediana MaxN por hora</td>
 <td>horas de grabación (hr)</td>
 <td>Mediana</td>
 <td>Rango intercuartílico (P75 − P25)</td>
