@@ -1,0 +1,1032 @@
+---
+title: "Anexo — Ejemplo guiado del código de R"
+subtitle: "Código de la Herramienta 3 · Cálculo de indicadores del Plan Regional de Monitoreo de Especies Prioritarias del PET"
+author: "Gestión de Datos · MigraMar"
+date: today
+date-format: "D [de] MMMM [de] YYYY"
+lang: es
+format:
+  html:
+    theme: default
+    mainfont: '"Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif'
+    monofont: 'Consolas, "Cascadia Mono", Menlo, "Courier New", monospace'
+    fontsize: 1rem
+    linestretch: 1.5
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    toc-title: "Contenido"
+    code-fold: true
+    code-summary: "Ver código"
+    code-overflow: wrap
+    code-copy: true
+    highlight-style: github
+    embed-resources: true
+    fig-width: 9
+    fig-height: 4.8
+    include-in-header:
+      text: |
+        <style>
+          h1, h2, h3 { color: #0b4f6c; font-weight: 600; }
+          h1.title { font-size: 1.9rem; }
+          h1 { font-size: 1.45rem; margin-top: 2.2rem; padding-bottom: .3rem; border-bottom: 2px solid #e3eef3; }
+          h2 { font-size: 1.15rem; margin-top: 1.6rem; }
+          .subtitle { color: #4a6572; font-size: 1.05rem; }
+          table { font-size: .92rem; }
+          pre, code { font-size: .84rem; }
+          div.sourceCode { border: 1px solid #e6e9ec; }
+          details > summary { color: #0b4f6c; font-weight: 600; }
+          .cell-output pre { white-space: pre-wrap; word-break: break-word; background: #f7f9fa; border-left: 3px solid #0b4f6c; padding: .6rem .8rem; }
+          .cell-output pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+          .revisar { background: #eef6f2; border-left: 4px solid #2e7d5b; padding: .6rem .9rem; margin: .8rem 0 1.2rem; border-radius: 4px; }
+        </style>
+execute:
+  warning: false
+  message: false
+knitr:
+  opts_chunk:
+    results: hold
+    fig.show: hold
+---
+
+::: callout-note
+## Sobre este anexo
+
+Este anexo muestra cómo se ve el código de R de principio a fin, ejecutado
+con **datos ficticios**. Cada sección explica en dos líneas qué hace el código
+y qué debe revisar usted. El código está plegado: haga clic en **Ver código**
+para abrirlo. Lo único que usted edita (Sección I) está siempre visible.
+
+Los resultados de este ejemplo sirven para aprender a leerlos, no para
+interpretarlos: no representan ningún monitoreo real.
+:::
+
+# Antes de empezar
+
+**Qué hace el código.** Con su archivo de datos crudos, el código calcula el
+valor anual del indicador, lo evalúa frente a la línea base (AVP) y guarda un
+archivo .csv listo para Marine Manager de Global Fishing Watch, junto con un
+reporte en PDF para revisar el resultado antes de publicarlo.
+
+**Qué necesita tener a mano.**
+
+-   Su archivo de datos en .csv, con una fila por réplica, filtrado solo para
+    un indicador, una especie y un área (vea la hoja datos_crudos de las Plantillas de datos,
+    Herramienta 2).
+-   La Referencia metodológica (Herramienta 1), para los parámetros de su
+    indicador.
+-   El Catálogo de vocabulario (Herramienta 4), para escribir los nombres
+    exactos de especie, indicador y área.
+
+**Cómo está organizado.** Ejecute las secciones en orden. Solo edita la Sección I.
+
+| Sección | Qué hace | ¿Usted edita? |
+|----|----|:--:|
+| Preparación | Instala y carga los paquetes de R | No |
+| I. Carga y configuración | Carga su archivo y define los parámetros del indicador | **Sí** |
+| II. Estandarización | Renombra columnas, divide entre el esfuerzo y limpia filas vacías | No |
+| III. Indicador y AVP | Valida la línea base, calcula percentiles y clasifica cada año | No |
+| IV. Consolidación | Arma la tabla final con el formato de Marine Manager | No |
+| V. Guardar | Guarda el archivo .csv junto a su archivo de datos | No |
+| VI. Reporte de revisión | Genera un PDF con lo que se verá en Marine Manager | No |
+
+::: callout-warning
+El código no filtra sus datos. Si su archivo mezcla especies, indicadores o
+áreas, el resultado será incorrecto y el código no podrá detectarlo.
+:::
+
+# El ejemplo
+
+Una investigadora de la Universidad XYZ monitorea **tiburón martillo** con
+cámaras remotas con carnada (BRUVS) pelágicas en la **Isla del Coco**. Su
+indicador es el **SLE-01**: abundancia relativa en MaxN por hora de
+grabación. Tiene datos de 2012 a 2025, con una fila por despliegue de cámara.
+
+::::: {.columns}
+:::: {.column width="47%"}
+**Lo que dice la Referencia metodológica para SLE-01**
+
+| Parámetro | Valor |
+|----|----|
+| Estadístico anual | Mediana |
+| Interpretación | A |
+| Evaluación | AVP |
+| Línea base | 5 años |
+::::
+:::: {.column width="6%"}
+::::
+:::: {.column width="47%"}
+**Las columnas de su archivo que usa el cálculo**
+
+| Su columna | Corresponde a |
+|----|----|
+| `Year` | Año |
+| `S_lewini_MaxN` | Valor medido |
+| `Tiempo_video_h` | Esfuerzo |
+| `Investigador`, `Institucion`, `Email` | Datos del proveedor |
+::::
+:::::
+
+Sus columnas no necesitan llamarse como en la plantilla, y las que el cálculo
+no usa (estación, profundidad, observaciones…) pueden quedarse en el archivo.
+
+# Preparación
+
+Instala, si hace falta, y activa los paquetes de R. Ejecútelo siempre.
+
+```{r}
+#| results: hide
+# Lista de paquetes requeridos
+paquetes <- c("ggplot2", "dplyr", "tidyr", "knitr")
+
+# Identificar cuáles NO están instalados
+paquetes_faltantes <- paquetes[!(paquetes %in% installed.packages()[, "Package"])]
+
+# Instalarlos si hace falta
+if (length(paquetes_faltantes) > 0) {
+  install.packages(paquetes_faltantes)
+}
+
+# Cargar todos los paquetes
+lapply(paquetes, library, character.only = TRUE)
+```
+
+# I. Carga de datos y configuración
+
+## Paso 1 · Cargar su archivo
+
+Se abre una ventana para elegir su archivo .csv. El resultado final se
+guardará en esa misma carpeta.
+
+```{r}
+# Al correr este bloque se abrirá una ventana emergente de su explorador de archivos:
+# busque su archivo de datos (.csv), selecciónelo y dé clic en "Abrir/Open".
+# (Si el código se ejecuta de forma automática para generar un reporte, como en
+# este anexo, se usa directamente el archivo de ejemplo indicado abajo.)
+
+if (interactive()) {
+  ruta_archivo <- file.choose()
+} else {
+  file.copy("../descargas/ejemplo_ficticio_SLE-01_cocos_island.csv", ".", overwrite = TRUE)
+  ruta_archivo <- "ejemplo_ficticio_SLE-01_cocos_island.csv"
+}
+
+cat("Archivo seleccionado:", ruta_archivo, "\n")
+cat("Los resultados se guardarán en la carpeta:", normalizePath(dirname(ruta_archivo)), "\n")
+```
+
+A continuación R muestra los nombres de sus columnas y las primeras filas.
+Copie de aquí los nombres exactos para el Paso 2.
+
+```{r}
+#| code-fold: show
+df_crudo <- read.csv(ruta_archivo, fileEncoding = "Latin1", check.names = FALSE)
+
+cat("\n--> Columnas disponibles en su archivo:\n")
+print(colnames(df_crudo))
+
+cat("\n--> Vista previa de las primeras filas:\n")
+head(df_crudo)
+```
+
+## Paso 2 · Configurar su indicador
+
+Este es el **único bloque que usted modifica**. Reemplace cada valor del
+ejemplo por el suyo, usando los nombres de columnas del Paso 1, la Referencia
+metodológica (Parte 2) y el Catálogo de vocabulario.
+
+```{r}
+#| code-fold: false
+## =============================================================================
+## CAMBIOS MANUALES: Configure las variables de su indicador aquí
+## =============================================================================
+
+
+## AÑO
+# Escriba entre comillas el nombre EXACTO de la columna de su archivo que corresponde al año
+# En este ejemplo la columna se llama "Year".
+# Reemplace lo escrito en el ejemplo por el nombre de su columna.
+
+col_anio            <- "Year"
+
+## VALOR VARIABLE INDICADOR
+# Escriba entre comillas el nombre EXACTO de la columna de su archivo que corresponde a la
+# variable medida del indicador (p.ej.: "MaxN", "catch_kg"), tal como aparece en la vista
+# previa de columnas de la sección anterior — incluyendo espacios si los tuviera (el código ya
+# conserva los nombres de columna originales, sin transformarlos).
+# En este ejemplo se llama "S_lewini_MaxN".
+# Reemplace lo escrito en el ejemplo por el nombre de su columna.
+
+col_valor           <- "S_lewini_MaxN"
+
+
+## VALOR DE ESFUERZO MUESTREO
+# Active la línea de código de col_esfuerzo correspondiente según su caso
+# (en este ejemplo: esfuerzo simple, horas de grabación de cada BRUVS):
+
+
+# INDICADOR YA ESTANDARIZADO:
+
+    # col_esfuerzo <- NULL
+
+
+# INDICADOR CON ESFUERZO SIMPLE (UNA ÚNICA VARIABLE DE ESFUERZO):
+
+  # Ejemplo: c("horas_buceo")
+  # Sustituya el texto entre comillas por el nombre de la columna de su archivo de datos que corresponde a la variable de esfuerzo
+
+
+    col_esfuerzo <- c("Tiempo_video_h")
+
+
+# INDICADOR CON ESFUERZO COMPUESTO (CON MÁS DE UNA VARIABLE DE ESFUERZO)
+
+    # - Ejemplo: c("ancho_transecto", "largo_transecto"), Calcula: valor / (ancho × largo)
+    # Sustituya el texto entre comillas por el nombre de las columnas de su archivo de datos que corresponden a las variables de esfuerzo
+
+
+   # col_esfuerzo <- c("ancho_transecto", "largo_transecto")
+
+
+
+## METADATOS DEL PROVEEDOR DE DATOS (para darle crédito)
+# Se piden en este orden:
+#   1) Institución, organización o proyecto propietario del dato, y su página web (si tiene)
+#   2) Nombre y correo del punto de contacto
+# Para cada dato: si su archivo tiene una columna con ese dato -> Opción A; si no -> Opción B.
+# Si no completa ninguna, el campo queda como "No especificado".
+
+# OPCIÓN A: Sustituir el texto entre comillas por el nombre EXACTO de la columna en su archivo (déjelo tal cual si no aplica)
+col_institucion     <- "Institucion"    # institución, organización o proyecto propietario del dato
+col_dueno_dato      <- "Investigador"   # nombre del punto de contacto
+col_contacto        <- "Email"          # correo del punto de contacto
+
+# OPCIÓN B: Sustituir el texto entre comillas por el dato directamente (solo si NO le aplica la Opción A de arriba). Si no hay especificación, déjelo como NA_character_
+dato_institucion_directo <- NA_character_     # Ejemplo: "Universidad XYZ"
+dato_dueno_directo       <- NA_character_     # Ejemplo: "Juana Pérez" (punto de contacto)
+dato_contacto_directo    <- NA_character_     # Ejemplo: "juana.perez@correo.org"
+
+# Página web de la institución, organización o proyecto (opcional). Ejemplo: "www.miproyecto.org"
+# Si no aplica, deje NA_character_.
+meta_contacto_adicional <- NA_character_
+
+
+
+## PARÁMETROS METODOLÓGICOS DEL INDICADOR ##
+
+
+# Defina los parámetros de su indicador usando la Referencia metodológica (Herramienta 1, Parte 2 — Lista de detalles metodológicos por indicador).
+
+
+## TIPO ESTADÍSTICO ANUAL
+tipo_metrica        <- "mediana"  # Opciones: "mediana", "promedio", "valor_directo"
+
+
+## TIPO INTERPRETACIÓN
+tipo_interpretacion <- "A" # Opciones: "A", "B"
+
+
+## AÑOS LÍNEA BASE
+# Ventana temporal de Línea Base: normalmente 5 años. El código la amplía automáticamente a 10 años más adelante si su línea base no reúne el mínimo de eventos de monitoreo requerido (ver Plan de Monitoreo para más detalle - Capítulo 8, y la Referencia metodológica - Parte 1 para un repaso)
+
+# Sustituya los valores del número de año que corresponda a sus datos
+anio_inicio_base    <- 2012
+anio_final_base     <- 2016
+
+
+
+## METADATOS INDICADOR
+
+# Para completar esta sección, utilice el Catálogo de vocabulario (Herramienta 4) de la siguiente forma
+# Nombre especie: Ver Hoja especie_id, columna 'especie_id'
+# Nombre indicador: Ver Hoja indicador_id, columna 'id_cmar_gfw'
+# Nombre área de estudio: Ver Hoja area_id, columna 'area_id' (si su área no está en el catálogo, asegúrese de comunicar al enlace técnico para definirlo en conjunto)
+
+meta_species        <- "hammerhead_shark"
+meta_indicator      <- "relative_abundance_based_on_pelagic_bruvs"
+meta_area           <- "cocos_island"
+
+
+## ESPECIFICACIONES DEL MUESTREO (para el reporte de revisión, Sección VI)
+# Describa en pocas palabras dónde y cuándo se tomaron los datos usados en el cálculo.
+# Estos textos aparecerán en Marine Manager junto a su indicador.
+
+meta_sitios         <- "los sitios Manuelita, Dirty Rock y Alcyone"   # sitio(s) de muestreo
+meta_estacion       <- "la época seca (marzo a mayo)"                  # estación o época de muestreo
+meta_unidad         <- "MaxN/hr"                                      # unidad del valor anual
+
+
+## NOMBRE ARCHIVO RESULTANTE
+
+# El código usará el siguiente nombre para el archivo final que se genera en la Sección V.
+
+# Solo debe cambiar el texto entre comillas por el código-corto de su indicador + el nombre de su área de estudio, tomados del Catálogo de vocabulario (Herramienta 4):
+  # código-corto en la hoja 'indicador_id', columna 'codigo_corto';
+  # área en la hoja 'area_id', columna 'area_id' (debe coincidir con lo que escribió arriba en 'meta_area').
+  # agregar la etiqueta _calculado siempre, por favor.
+
+# El resto del nombre se completa automáticamente: la fecha de hoy (Sys.Date()) y la etiqueta ".csv".
+
+resultado <- paste0("SLE-01_cocos_island_calculado_", Sys.Date(), ".csv")
+
+# Con los valores de este ejemplo, el archivo se llamaría, por ejemplo: "SLE-01_cocos_island_calculado_2026-10-23.csv"
+
+resultado
+
+## =============================================================================
+```
+
+::: callout-important
+Desde aquí en adelante no modifique nada: ejecute los bloques en orden y
+revise los mensajes.
+:::
+
+# II. Estandarización de datos
+
+Revisa que el archivo tenga datos, pasa sus columnas a nombres internos,
+guarda los datos del proveedor, divide el valor entre el esfuerzo, elimina
+filas sin año o sin valor y cuenta los años con datos.
+
+```{r}
+# 1. VERIFICAR QUE EL ARCHIVO CARGADO TENGA INFORMACIÓN VÁLIDA
+# Confirma que el archivo cargado en la Sección I sí contiene información (que no esté vacío o
+# mal leído) antes de continuar con el resto del código.
+
+stopifnot("ERROR: El archivo no contiene datos válidos. Revise que seleccionó el archivo correcto en la Sección I." = nrow(df_crudo) > 0 && ncol(df_crudo) > 0)
+
+
+# 2. HOMOLOGACIÓN DE NOMBRES DE COLUMNAS
+# 2.1. Definir el diccionario (Nombre_Nuevo = Variable_con_Nombre_Viejo)
+
+diccionario_columnas <- c(
+  Anio        = col_anio,
+  Valor       = col_valor,
+  Dueno_Dato  = col_dueno_dato,
+  Contacto    = col_contacto,
+  Institucion = col_institucion
+)
+
+# 2.2 Aplicar renombrado
+df_crudo <- df_crudo %>%
+  rename(any_of(diccionario_columnas))
+
+
+# 3. GUARDAR METADATOS DEL PROVEEDOR DE DATOS PARA REFERENCIA POSTERIOR
+
+
+# Función auxiliar: si la columna existe en el archivo, toma su valor; si no existe, usa el dato escrito directamente en la Sección I (Opción B); si tampoco hay un dato directo, indica "No especificado".
+
+obtener_meta <- function(col, valor_directo, df) {
+  if (col %in% colnames(df)) {
+    unique(df[[col]])[1]
+  } else if (!is.na(valor_directo)) {
+    valor_directo
+  } else {
+    "No especificado"
+  }
+}
+
+meta_dueno       <- obtener_meta("Dueno_Dato", dato_dueno_directo, df_crudo)
+meta_contacto    <- obtener_meta("Contacto", dato_contacto_directo, df_crudo)
+meta_institucion <- obtener_meta("Institucion", dato_institucion_directo, df_crudo)
+
+cat("\n  Propietario del dato (institución/organización/proyecto):", meta_institucion, "\n")
+cat("  Punto de contacto:", meta_dueno, "\n")
+cat("  Correo del punto de contacto:", meta_contacto, "\n")
+
+
+# 4. ESTANDARIZACIÓN POR ESFUERZO DE MUESTREO
+
+# Esta sección estandariza su variable de monitoreo por el esfuerzo.
+
+if (is.null(col_esfuerzo)) {
+
+  cat("\n✓ Indicador ya estandarizado (sin división por esfuerzo)\n")
+
+} else {
+
+  # Verificar que las columnas de esfuerzo indicadas existan en el archivo
+  faltantes_esfuerzo <- setdiff(col_esfuerzo, colnames(df_crudo))
+  if (length(faltantes_esfuerzo) > 0) {
+    stop("No se encontraron las columnas de esfuerzo: ",
+         paste(faltantes_esfuerzo, collapse = ", "))
+  }
+
+  if (length(col_esfuerzo) == 1) {
+    # Indicador esfuerzo simple: una sola variable de esfuerzo
+    df_crudo$Esfuerzo <- df_crudo[[col_esfuerzo]]
+    cat("\n✓ Esfuerzo tomado de la columna:", col_esfuerzo, "\n")
+
+  } else if (length(col_esfuerzo) == 2) {
+    # Indicador esfuerzo compuesto: esfuerzo = producto de dos variables
+    df_crudo$Esfuerzo <- df_crudo[[col_esfuerzo[1]]] * df_crudo[[col_esfuerzo[2]]]
+    cat("\n✓ Esfuerzo calculado como", col_esfuerzo[1], "x", col_esfuerzo[2], "\n")
+
+  } else {
+    stop("col_esfuerzo debe tener longitud 0 (NULL), 1 o 2, no ", length(col_esfuerzo))
+  }
+
+  df_crudo <- df_crudo %>%
+    mutate(Valor = Valor / Esfuerzo)
+  cat("✓ Indicador estandarizado por esfuerzo\n")
+}
+
+
+# 5. ELIMINAR FILAS VACÍAS O INCOMPLETAS
+# Limpiar registros donde falte el año o el valor.
+
+df_crudo <- df_crudo[rowSums(is.na(df_crudo[c("Anio", "Valor")])) == 0, ]
+
+
+# 6. CONTAR AÑOS PARA LOS QUE HAY DATOS Y VERIFICAR LA COBERTURA TEMPORAL
+# Este paso no modifica sus datos: solo calcula cuántos años distintos hay disponibles, para que
+# usted confirme que coinciden con su serie.
+
+anios_unicos <- unique(df_crudo$Anio)
+
+anios_totales <- length(anios_unicos)
+cat("  Años con datos:", min(anios_unicos), "a", max(anios_unicos),
+    "(" , anios_totales, "años totales)\n")
+```
+
+::: revisar
+**Revise:** que el proveedor, el contacto y la institución sean correctos, que
+el esfuerzo venga de la columna esperada y que el rango de años coincida con su
+serie. En el ejemplo: `r anios_totales` años (`r min(anios_unicos)`–`r max(anios_unicos)`).
+:::
+
+# III. Indicador y Ámbito de Variación Permisible (AVP)
+
+Para el detalle metodológico, vea el Capítulo 8 del Plan (sección 8.1a).
+
+## A. Validación de la línea base
+
+Comprueba que la línea base tenga al menos 5 años con datos y suficientes
+eventos de monitoreo. Si no los tiene, la amplía sola a 10 años.
+
+```{r}
+## SECCIÓN III.A: VALIDAR LÍNEA BASE (con ampliación automática 5 -> 10 años)
+
+# 1. Filtrar datos de la línea base tal como fue definida en la Sección I
+df_linea_base <- df_crudo %>%
+  filter(Anio >= anio_inicio_base & Anio <= anio_final_base)
+
+if (nrow(df_linea_base) == 0) {
+  stop(paste("ERROR: No hay datos en el período de línea base definido:",
+             anio_inicio_base, "-", anio_final_base,
+             ". Revise los años configurados en la Sección I."))
+}
+
+anios_linea_base   <- n_distinct(df_linea_base$Anio)
+total_eventos_base <- nrow(df_linea_base)
+
+# 2. Regla 1: menos de 5 años con datos dentro de la línea base -> no se puede calcular el AVP
+if (anios_linea_base < 5) {
+
+  stop(paste("ERROR: La línea base tiene datos en solo", anios_linea_base,
+             "año(s). Se requieren al menos 5 años para calcular el AVP. Revise su archivo o la ventana de tiempo configurada en la Sección I."))
+
+# 3. Regla 2: hay 5 años pero menos de 15 eventos de monitoreo acumulados -> ampliar a 10 años
+} else if (total_eventos_base < 15 && tipo_metrica != "valor_directo") {
+
+  anio_final_original  <- anio_final_base
+  anio_final_calculado <- anio_inicio_base + 9
+  max_anio_disponible  <- max(df_crudo$Anio)
+
+  # Control de seguridad: verificar si la serie de datos llega hasta ese año
+  if (anio_final_calculado > max_anio_disponible) {
+    anio_final_base <- max_anio_disponible
+    cat("\n⚠️ ADVERTENCIA DE COBERTURA:\n")
+    cat("   Se requerían 10 años de línea base por bajo número de eventos, pero la serie",
+        "disponible finaliza en", max_anio_disponible, ". Se usará ese límite.\n")
+  } else {
+    anio_final_base <- anio_final_calculado
+  }
+
+  cat("\n⚠️ REAJUSTE AUTOMÁTICO DE LÍNEA BASE:\n")
+  cat("   - Período inicial (", anio_inicio_base, "-", anio_final_original, "):",
+      total_eventos_base, "eventos acumulados (< 15 requeridos).\n")
+  cat("   - Nuevo período ampliado de línea base:", anio_inicio_base, "-", anio_final_base, "\n")
+
+  # Reconstruir la línea base con la nueva ventana ampliada
+  df_linea_base      <- df_crudo %>% filter(Anio >= anio_inicio_base & Anio <= anio_final_base)
+  anios_linea_base    <- n_distinct(df_linea_base$Anio)
+  total_eventos_base  <- nrow(df_linea_base)
+
+} else {
+  cat("\n✓ Línea base válida (", anio_inicio_base, "-", anio_final_base, "):",
+      total_eventos_base, "eventos acumulados (≥ 15).\n")
+}
+
+# 4. Diagnóstico informativo: eventos de monitoreo por año dentro de la línea base final
+eventos_por_anio <- df_linea_base %>%
+  group_by(Anio) %>%
+  summarise(n_eventos = n(), .groups = "drop")
+
+cat("\n--> Eventos de monitoreo por año dentro de la línea base final:\n")
+print(eventos_por_anio)
+
+anios_bajos <- eventos_por_anio %>% filter(n_eventos < 10)
+if (nrow(anios_bajos) > 0) {
+  cat("\n⚠️  Nota: los siguientes años individuales tienen pocos eventos (< 10):\n")
+  print(anios_bajos)
+  cat("   Esto es solo informativo; no impide el cálculo si el total de la línea base ya es suficiente.\n")
+}
+```
+
+::: revisar
+**Revise:** el mensaje ✓ confirma que la línea base es válida. En el ejemplo
+reúne `r total_eventos_base` eventos. El aviso ⚠️ sobre 2013 es informativo y no
+detiene el cálculo.
+:::
+
+## B. Estadísticas de la línea base
+
+Resumen descriptivo de los valores de la línea base, solo como referencia.
+
+```{r}
+## SECCIÓN III.B: PREPARAR DATOS AÑOS LÍNEA BASE
+
+# Extraer todos los valores de monitoreo de la línea base (ya ajustada en III.A si aplicó)
+valores_linea_base <- df_linea_base$Valor
+
+# Calcular estadísticas descriptivas del conjunto de datos que componen la línea base, de forma exploratoria.
+
+estadistica_minimo   <- min(valores_linea_base, na.rm = TRUE)
+estadistica_maximo   <- max(valores_linea_base, na.rm = TRUE)
+estadistica_media    <- mean(valores_linea_base, na.rm = TRUE)
+estadistica_mediana  <- median(valores_linea_base, na.rm = TRUE)
+estadistica_desvest  <- sd(valores_linea_base, na.rm = TRUE)  # Recomendado para datos continuos
+estadistica_varianza <- var(valores_linea_base, na.rm = TRUE)
+
+# Sugerencia: DESVIACIÓN ESTÁNDAR es recomendable para datos continuos o tasas porque expresa la
+# variabilidad en las mismas unidades que la media. La varianza es matemáticamente equivalente
+# pero en escala cuadrática (menos intuitiva).
+
+tabla_estadisticas <- data.frame(
+  Minimo   = round(estadistica_minimo, 4),
+  Maximo   = round(estadistica_maximo, 4),
+  Media    = round(estadistica_media, 4),
+  Mediana  = round(estadistica_mediana, 4),
+  Desv_Est = round(estadistica_desvest, 4),
+  Varianza = round(estadistica_varianza, 4)
+)
+
+cat("\n--> Estadísticas descriptivas de la Línea Base:\n")
+print(tabla_estadisticas)
+```
+
+## C. Percentiles del AVP
+
+Calcula P10, P25, P50 y P75 de la línea base: son los umbrales con los que se
+clasifica cada año.
+
+```{r}
+## SECCIÓN III.C: CÁLCULO DE PERCENTILES
+
+# Calcular percentiles P10, P25, P50, P75 según metodología del Plan
+perc <- quantile(valores_linea_base, probs = c(0.10, 0.25, 0.50, 0.75), na.rm = TRUE)
+
+P10 <- perc[[1]]
+P25 <- perc[[2]]
+P50 <- perc[[3]]  # Mediana
+P75 <- perc[[4]]
+
+cat("\n--> Ámbito de Variación Permisible (AVP) - Percentiles de Línea Base:\n")
+cat("  P10 (10%):    ", round(P10, 4), "\n")
+cat("  P25 (25%):    ", round(P25, 4), "\n")
+cat("  P50 (50%):    ", round(P50, 4), " [Mediana]\n")
+cat("  P75 (75%):    ", round(P75, 4), "\n")
+
+# Los valores resultantes arriba corresponden a los umbrales que definirán la categoría de
+# su indicador año tras año.
+```
+
+| Valor anual (interpretación A) | Categoría |
+|----|----|
+| ≤ `r round(P10, 2)` (P10) | Crítico |
+| `r round(P10, 2)` – `r round(P25, 2)` (P25) | Alerta |
+| `r round(P25, 2)` – `r round(P50, 2)` (P50) | Estable |
+| `r round(P50, 2)` – `r round(P75, 2)` (P75) | Bueno |
+| \> `r round(P75, 2)` | Muy bueno |
+
+: Umbrales del ejemplo {.striped}
+
+## D. Valor anual y categoría
+
+Calcula el valor de cada año (aquí, la mediana de sus réplicas) y lo clasifica
+según los umbrales anteriores.
+
+```{r}
+## SECCIÓN III.D: CONSTRUCCIÓN DE LA TABLA AVP PARA TODOS LOS AÑOS
+
+# 1. Calcular, para cada año: número de réplicas, mediana, rango intercuartílico (RIC),
+#    promedio y desviación estándar (DE). El valor anual del indicador es el estadístico
+#    definido en la Sección I (mediana, promedio o valor directo).
+indicador_anual <- df_crudo %>%
+  group_by(Anio) %>%
+  summarise(
+    n_eventos = n(),
+    Mediana   = median(Valor, na.rm = TRUE),
+    RIC       = IQR(Valor, na.rm = TRUE),   # rango intercuartílico: P75 - P25 de las réplicas del año
+    Promedio  = mean(Valor, na.rm = TRUE),
+    DE        = sd(Valor, na.rm = TRUE),    # queda NA si el año tiene una sola réplica
+    Primero   = first(Valor),
+    .groups   = "drop"
+  ) %>%
+  mutate(Valor_Anual = case_when(
+    tipo_metrica == "promedio"      ~ Promedio,
+    tipo_metrica == "valor_directo" ~ Primero,
+    TRUE                            ~ Mediana   # mediana
+  ))
+
+# 1b. Medida de dispersión que acompaña al valor anual, según el estadístico anual:
+#     mediana -> rango intercuartílico · promedio -> desviación estándar · valor directo -> no aplica (NA).
+#     El código de 'dispersion_type' viene del Catálogo de vocabulario (hoja dispersion_id).
+if (tipo_metrica == "mediana") {
+  indicador_anual$Dispersion <- indicador_anual$RIC
+  dispersion_type <- "interquartile_range"
+} else if (tipo_metrica == "promedio") {
+  indicador_anual$Dispersion <- indicador_anual$DE
+  dispersion_type <- "standard_deviation"
+} else {
+  indicador_anual$Dispersion <- NA_real_
+  dispersion_type <- "not_applicable"
+}
+
+# 2. Clasificar cada año en una de las 5 categorías AVP, según el tipo de interpretación
+if (tipo_interpretacion == "A") {
+  indicador_anual <- indicador_anual %>%
+    mutate(
+      Categoria = case_when(
+        Valor_Anual <= P10 ~ "Crítico",
+        Valor_Anual <= P25 ~ "Alerta",
+        Valor_Anual <= P50 ~ "Estable",
+        Valor_Anual <= P75 ~ "Bueno",
+        TRUE               ~ "Muy Bueno"
+      )
+    )
+} else {
+  indicador_anual <- indicador_anual %>%
+    mutate(
+      Categoria = case_when(
+        Valor_Anual > P75 ~ "Crítico",
+        Valor_Anual > P50 ~ "Alerta",
+        Valor_Anual > P25 ~ "Estable",
+        Valor_Anual > P10 ~ "Bueno",
+        TRUE              ~ "Muy Bueno"
+      )
+    )
+}
+
+# Forzar orden jerárquico de categorías (para que el gráfico y la leyenda respeten este orden)
+indicador_anual$Categoria <- factor(
+  indicador_anual$Categoria,
+  levels = c("Crítico", "Alerta", "Estable", "Bueno", "Muy Bueno")
+)
+
+# Tabla larga (un renglón por año) - se usa para el gráfico de la sección III.E
+tabla_1_AVP <- indicador_anual
+
+cat("\n--> Tabla anual con evaluación AVP:\n")
+print(tabla_1_AVP)
+
+# 3. Formato ancho: una columna por año (así lo requiere la plantilla de GFW).
+#    Cada celda lleva 3 valores separados por ";": observado;dispersión;predicho.
+#    "predicho" queda NA mientras no se use un modelo estadístico. Se redondea a 3 decimales.
+f3 <- function(x) ifelse(is.na(x), "NA", sprintf("%.3f", x))
+valores_anchos_AVP <- indicador_anual %>%
+  mutate(Celda = paste(f3(Valor_Anual), f3(Dispersion), "NA", sep = ";")) %>%
+  select(Anio, Celda) %>%
+  pivot_wider(names_from = Anio, values_from = Celda)
+
+# 4. Fila única resumen (formato ancho) con percentiles, metadatos y estadísticas descriptivas
+tabla_1_AVP_control <- data.frame(
+  species        = meta_species,
+  indicator      = meta_indicator,
+  area           = meta_area,
+  metric_type    = "observed_AVP",
+  dispersion_type = dispersion_type,
+  baseline_years = paste0(anio_inicio_base, "-", anio_final_base),
+  P10            = round(P10, 3),
+  P25            = round(P25, 3),
+  P50            = round(P50, 3),
+  P75            = round(P75, 3)
+) %>%
+  # Une horizontalmente las columnas de todos los años
+  bind_cols(valores_anchos_AVP) %>%
+  mutate(
+    data_owner              = meta_dueno,
+    provider_contact        = meta_contacto,
+    provider_institution    = meta_institucion,
+    additional_contact_info = meta_contacto_adicional
+  )
+
+
+cat("\n--> Fila resumen (AVP, formato ancho) construida con éxito.\n")
+```
+
+::: revisar
+**Revise:** cada renglón es un año. `n_eventos` es el número de réplicas;
+`Mediana`, `RIC` (rango intercuartílico), `Promedio` y `DE` (desviación
+estándar) describen las réplicas del año. `Valor_Anual` es el estadístico
+elegido (aquí, la mediana), `Dispersion` su medida de dispersión (aquí, el RIC)
+y `Categoria` la clasificación AVP.
+:::
+
+## E. Gráfico de la serie
+
+```{r}
+## SECCIÓN III.E: GRÁFICO DE SERIES TEMPORALES
+
+colores_avp <- c(
+  "Crítico"   = "#8B0000", # Rojo
+  "Alerta"    = "#FF8C00", # Naranja
+  "Estable"   = "#FFD700", # Amarillo
+  "Bueno"     = "#90EE90", # Verde claro
+  "Muy Bueno" = "#006400"  # Verde oscuro
+)
+
+grafico_final <- ggplot(tabla_1_AVP, aes(x = Anio, y = Valor_Anual)) +
+  geom_hline(yintercept = P50, linetype = "solid", color = "#00B0FF", linewidth = 0.8) +
+  geom_hline(yintercept = c(P25, P75), linetype = "dashed", color = "#90A4AE", linewidth = 0.6) +
+  geom_line(color = "#002447", linewidth = 0.8) +
+  geom_point(aes(color = Categoria), size = 3.5) +
+  scale_color_manual(values = colores_avp, drop = FALSE) +
+  scale_x_continuous(breaks = min(tabla_1_AVP$Anio):max(tabla_1_AVP$Anio)) +
+  theme_minimal() +
+  labs(
+    title = paste("Indicador:", meta_indicator, "| Área:", meta_area),
+    subtitle = "Línea azul = P50 (Mediana); líneas gris punteadas = P25 y P75",
+    x = "Año",
+    y = paste0("Métrica (", tipo_metrica, ")"),
+    color = "Categoría AVP"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()
+  )
+
+print(grafico_final)
+```
+
+Cada punto es un año, coloreado según su categoría. La línea azul es la
+mediana de la línea base (P50) y las punteadas grises, P25 y P75.
+
+# IV. Consolidación de resultados
+
+Toma la fila de resultados del AVP y ordena sus columnas tal como lo pide la
+hoja datos_calculados de las Plantillas de datos (Herramienta 2).
+
+```{r}
+#| results: hide
+## CONSOLIDACIÓN DE TABLA FINAL PARA PLATAFORMA GFW
+
+cat("\n--> Generando Tabla Consolidada final para GFW...\n")
+
+# Texto "Especificaciones y fuente del dato": se guarda en la columna 'comments' y aparece en
+# el reporte de revisión (Sección VI). Usa las especificaciones del muestreo de la Sección I.
+texto_dispersion <- switch(tipo_metrica,
+  mediana  = "Cada valor anual es la mediana de las réplicas del año, acompañada del rango intercuartílico como medida de dispersión.",
+  promedio = "Cada valor anual es el promedio de las réplicas del año, acompañado de la desviación estándar como medida de dispersión.",
+  "Cada valor anual es un valor único por año, por lo que no se reporta una medida de dispersión.")
+
+texto_fuente <- paste0(
+  "Este indicador se calcula con datos tomados en ", meta_sitios, " (", meta_area, "), durante ",
+  meta_estacion, ", entre ", min(indicador_anual$Anio), " y ", max(indicador_anual$Anio), ". ",
+  texto_dispersion, " ",
+  "Fuente del dato: ", meta_institucion,
+  if (!is.na(meta_contacto_adicional)) paste0(" (", meta_contacto_adicional, ")") else "", ". ",
+  "Punto de contacto: ", meta_dueno, " (", meta_contacto, ").")
+
+tabla_1_AVP_control$comments <- texto_fuente
+
+# Reordenar las columnas exactamente como lo exige la Plantilla de datos calculados
+# (Herramienta 2 / "H2_plantillas-datos.xlsx", hoja "datos_calculados")
+tabla_GFW_Final <- tabla_1_AVP_control %>%
+  select(
+    species, indicator, area, metric_type, dispersion_type, baseline_years,
+    P10, P25, P50, P75,
+    matches("^[0-9]{4}$"), # Inserta dinámicamente las columnas de años (ej. 2004, 2005...)
+    data_owner, provider_contact, provider_institution, additional_contact_info, comments
+  )
+
+# Despliegue final en el reporte
+cat("\n--> TABLA FINAL CONSOLIDADA PARA GFW:\n\n")
+knitr::kable(tabla_GFW_Final, caption = "Tabla Consolidada del Indicador para CMAR / GFW Marine Manager")
+```
+
+Así queda la tabla final del ejemplo (presentada en vertical para que se lea
+mejor; en el archivo .csv es una sola fila):
+
+```{r}
+#| echo: false
+tabla_vista <- data.frame(
+  Columna = names(tabla_GFW_Final),
+  Valor   = vapply(tabla_GFW_Final[1, ], function(x) {
+    if (is.numeric(x)) format(round(x, 4), nsmall = 0) else as.character(x)
+  }, character(1)),
+  row.names = NULL
+)
+tabla_vista$Valor[is.na(tabla_vista$Valor) | tabla_vista$Valor == "NA"] <- "(vacío)"
+knitr::kable(tabla_vista, align = c("l", "l"))
+```
+
+La columna `comments` lleva el texto completo de "Especificaciones y fuente
+del dato" (el mismo del reporte de revisión). Cada columna de año lleva tres
+valores separados por punto y coma:
+`observado;dispersión;predicho`, redondeados a 3 decimales. La columna
+`dispersion_type` indica qué medida de dispersión se usó (aquí,
+`interquartile_range`). El valor predicho queda `NA` mientras no se use un
+modelo estadístico. Las estadísticas descriptivas de la Sección III.B no forman
+parte del archivo.
+
+# V. Guardar el resultado
+
+Guarda el archivo .csv en la misma carpeta de su archivo de datos, con el
+nombre definido en la Sección I.
+
+```{r}
+#| code-fold: show
+# El archivo se guarda en la misma carpeta donde está su archivo de datos (seleccionado en la Sección I).
+ruta_resultado <- file.path(dirname(ruta_archivo), resultado)
+
+# El archivo se guarda en UTF-8 con marca BOM, para que Excel muestre bien las tildes, la ñ y
+# otros caracteres especiales (sin esa marca, Excel muestra, por ejemplo, "rÃ©plicas").
+# na = "" deja las celdas vacías cuando un campo no aplica (en vez de escribir el texto "NA"),
+# tal como se espera en la Plantilla de datos calculados.
+con <- file(ruta_resultado, open = "w", encoding = "UTF-8")
+writeChar("\ufeff", con, eos = NULL)   # marca BOM
+write.csv(tabla_GFW_Final, con, row.names = FALSE, na = "")
+close(con)
+cat("\n✓ Archivo guardado en:", normalizePath(ruta_resultado), "\n")
+```
+
+# VI. Reporte de revisión previa a publicación
+
+Genera un PDF de 2 páginas. La primera parte muestra **cómo aparecerá su
+indicador en Marine Manager**: el gráfico y el texto de especificaciones y
+fuente del dato. Todo lo demás (ficha del indicador, umbrales y estadísticos
+de la línea base, y valores por año) va en un recuadro gris marcado "Solo para su
+referencia": es para que usted revise el cálculo y no se publica. Se guarda junto al archivo .csv. Sirve para
+revisar el resultado antes de publicarlo, también cuando MigraMar ejecuta el
+código por usted.
+
+```{r}
+## SECCIÓN VI: REPORTE DE REVISIÓN PREVIA A PUBLICACIÓN (PDF)
+## No requiere cambios: usa lo calculado en las secciones anteriores y las
+## especificaciones del muestreo definidas en la Sección I.
+
+library(grid)
+
+# 1. Datos para el reporte (los mismos que van en el archivo final)
+codigo_indicador <- sub("_.*$", "", resultado)                  # ej. "SLE-01"
+f2 <- function(x, d = 2) formatC(round(x, d), format = "f", digits = d)
+
+datos_rep <- tabla_1_AVP %>% select(Anio, n_eventos, Valor_Anual, Categoria, Mediana, RIC, Promedio, DE)
+
+# 2. Textos que acompañarán al indicador en Marine Manager (en oraciones)
+texto_avp <- paste0(
+  "La línea base (", anio_inicio_base, "-", anio_final_base, ") define los umbrales del ",
+  "Ámbito de Variación Permisible: P10 = ", f2(P10), ", P25 = ", f2(P25),
+  ", P50 = ", f2(P50), " y P75 = ", f2(P75), " ", meta_unidad, ".")
+
+# 3. Gráfico como en Marine Manager: línea base sombreada, todos los años con su color AVP
+grafico_mm <- ggplot(datos_rep, aes(x = Anio, y = Valor_Anual)) +
+  annotate("rect", xmin = anio_inicio_base - 0.5, xmax = anio_final_base + 0.5,
+           ymin = -Inf, ymax = Inf, fill = "grey85", alpha = 0.6) +
+  annotate("text", x = (anio_inicio_base + anio_final_base) / 2, y = Inf, vjust = 1.5,
+           label = "Línea base", size = 3, color = "grey40") +
+  geom_line(color = "grey70", linewidth = 0.5) +
+  geom_point(aes(color = Categoria), size = 3) +
+  scale_color_manual(values = colores_avp, drop = FALSE, name = NULL) +
+  scale_x_continuous(breaks = datos_rep$Anio) +
+  labs(x = NULL, y = meta_unidad) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "bottom", panel.grid.minor = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+# 4. Funciones simples para escribir texto en el PDF
+y_pos <- 0.95
+escribir <- function(txt, tam = 10, negrita = FALSE, color = "#1f2d33", sangria = 0.07,
+                     ancho = round(1080 / tam)) {   # caracteres por línea según el tamaño de letra
+  lineas <- unlist(lapply(txt, strwrap, width = ancho))
+  for (l in lineas) {
+    grid.text(l, x = sangria, y = y_pos, just = c("left", "top"),
+              gp = gpar(fontsize = tam, fontface = if (negrita) "bold" else "plain", col = color))
+    y_pos <<- y_pos - (tam * 1.45) / (11 * 72)
+  }
+  y_pos <<- y_pos - 0.008
+}
+titulo <- function(txt) { y_pos <<- y_pos - 0.012; escribir(txt, 12.5, TRUE, "#0b4f6c") }
+
+# 5. Crear el PDF (se guarda junto al archivo .csv)
+archivo_reporte <- file.path(dirname(ruta_archivo), sub("\\.csv$", "_reporte-revision.pdf", resultado))
+dispositivo <- if (capabilities("cairo")) grDevices::cairo_pdf else grDevices::pdf
+dispositivo(archivo_reporte, width = 8.5, height = 11, onefile = TRUE)
+
+# ---- Página 1: así aparecerá en Marine Manager ----
+grid.newpage(); y_pos <- 0.95
+escribir("Reporte de revisión previa a publicación", 17, TRUE, "#0b4f6c")
+escribir(paste0("Indicador ", codigo_indicador, " · ", meta_area, " · Generado el ",
+                format(Sys.Date(), "%d/%m/%Y")), 9.5, color = "#4a6572")
+escribir("BORRADOR PARA REVISIÓN DEL PROVEEDOR — NO PUBLICADO", 9, TRUE, "#c0392b")
+titulo("Así aparecerá su indicador en Marine Manager")
+escribir(paste0(meta_species, " · ", meta_indicator), 10, TRUE)
+print(grafico_mm, vp = viewport(x = 0.5, y = y_pos, width = 0.88, height = 0.33, just = "top"))
+y_pos <- y_pos - 0.345
+titulo("Especificaciones y fuente del dato")
+escribir(texto_fuente)
+
+# ---- Bloque "Solo para su referencia": ficha -> AVP y estadísticos -> valores por año ----
+# Se distingue con un recuadro gris. Si un apartado no cabe, continúa en una página nueva
+# dentro del mismo recuadro.
+alto_linea <- function(tam) (tam * 1.45) / (11 * 72)
+nueva_pagina_referencia <- function(continuacion = TRUE) {
+  grid.newpage(); y_pos <<- 0.95
+  grid.rect(x = 0.5, y = 0.965, width = 0.90, height = 0.93, just = "top",
+            gp = gpar(fill = "#f3f5f6", col = "#c9d1d6"))
+  if (continuacion) {
+    escribir("Solo para su referencia (continuación) — esta información NO aparecerá en Marine Manager", 11, TRUE, "#4a6572")
+  } else {
+    escribir("Solo para su referencia — esta información NO aparecerá en Marine Manager", 11, TRUE, "#4a6572")
+    escribir("Le compartimos estos resultados para que pueda revisar el cálculo de su indicador.", 9, color = "#4a6572")
+  }
+}
+asegurar_espacio <- function(necesario) if (y_pos - necesario < 0.035) nueva_pagina_referencia()
+
+
+# 1. Ficha del indicador
+ficha <- c(
+  paste0("Especie: ", meta_species),
+  paste0("Indicador: ", codigo_indicador, " (", meta_indicator, ")"),
+  paste0("Área de estudio: ", meta_area),
+  paste0("Sitio(s) de muestreo: ", meta_sitios),
+  paste0("Estación o época de muestreo: ", meta_estacion),
+  paste0("Periodo con datos: ", min(datos_rep$Anio), "-", max(datos_rep$Anio),
+         " (", nrow(datos_rep), " años)"),
+  paste0("Línea base: ", anio_inicio_base, "-", anio_final_base),
+  paste0("Estadístico anual: ", tipo_metrica, " (", meta_unidad, ") · Interpretación: ", tipo_interpretacion),
+  paste0("Propietario del dato: ", meta_institucion,
+         if (!is.na(meta_contacto_adicional)) paste0(" (", meta_contacto_adicional, ")") else ""),
+  paste0("Punto de contacto: ", meta_dueno, " (", meta_contacto, ")"))
+# El bloque empieza en la página 1 solo si cabe la ficha completa; si no, empieza en una página nueva
+espacio_ficha <- 0.02 + 0.06 + 0.05 + length(ficha) * alto_linea(9.5)
+if (y_pos - espacio_ficha < 0.035) {
+  nueva_pagina_referencia(continuacion = FALSE)
+} else {
+  y_pos <- y_pos - 0.02
+  grid.rect(x = 0.5, y = y_pos + 0.008, width = 0.90, height = y_pos - 0.03, just = "top",
+            gp = gpar(fill = "#f3f5f6", col = "#c9d1d6"))
+  escribir("Solo para su referencia — esta información NO aparecerá en Marine Manager", 11, TRUE, "#4a6572")
+  escribir("Le compartimos estos resultados para que pueda revisar el cálculo de su indicador.", 9, color = "#4a6572")
+}
+titulo("Ficha del indicador")
+escribir(ficha, 9.5)
+
+# 2. Ámbito de Variación Permisible y estadísticos descriptivos de la línea base (Sección III.B)
+asegurar_espacio(0.19)
+titulo("Ámbito de Variación Permisible")
+escribir(texto_avp)
+escribir("Estadísticos descriptivos de la línea base", 10, TRUE)
+est <- c(`Réplicas (n)` = as.character(total_eventos_base),
+         Mínimo = f2(estadistica_minimo, 3), Máximo = f2(estadistica_maximo, 3),
+         Media = f2(estadistica_media, 3), Mediana = f2(estadistica_mediana, 3),
+         `Desv. est.` = f2(estadistica_desvest, 3), Varianza = f2(estadistica_varianza, 3))
+cols_est <- 0.07 + (seq_along(est) - 1) * 0.125
+for (j in seq_along(est)) {
+  grid.text(names(est)[j], x = cols_est[j], y = y_pos, just = c("left", "top"),
+            gp = gpar(fontsize = 9, fontface = "bold"))
+  grid.text(est[[j]], x = cols_est[j], y = y_pos - 0.02, just = c("left", "top"), gp = gpar(fontsize = 9.5))
+}
+y_pos <- y_pos - 0.055
+
+# 3. Valores por año
+asegurar_espacio(0.05 + min(nrow(datos_rep) + 1, 12) * 0.019)
+titulo("Valores por año")
+cols_x <- c(0.07, 0.14, 0.21, 0.33, 0.48, 0.60, 0.71, 0.83)
+encab  <- c("Año", "n", "Valor anual", "Categoría AVP", "Mediana", "RIC", "Promedio", "DE")
+alto   <- min(0.019, (y_pos - 0.06) / (nrow(datos_rep) + 1))
+for (j in seq_along(encab)) grid.text(encab[j], x = cols_x[j], y = y_pos, just = c("left", "top"),
+                                      gp = gpar(fontsize = 9, fontface = "bold"))
+for (i in seq_len(nrow(datos_rep))) {
+  fila_i <- c(datos_rep$Anio[i], datos_rep$n_eventos[i], f2(datos_rep$Valor_Anual[i], 3),
+              as.character(datos_rep$Categoria[i]), f2(datos_rep$Mediana[i], 3), f2(datos_rep$RIC[i], 3),
+              f2(datos_rep$Promedio[i], 3), f2(datos_rep$DE[i], 3))
+  for (j in seq_along(fila_i)) grid.text(fila_i[j], x = cols_x[j], y = y_pos - i * alto,
+                                         just = c("left", "top"), gp = gpar(fontsize = 9))
+}
+y_pos <- y_pos - (nrow(datos_rep) + 1) * alto - 0.01
+grid.text("RIC = rango intercuartílico (P75 - P25 de las réplicas del año) · DE = desviación estándar",
+          x = 0.07, y = y_pos, just = c("left", "top"), gp = gpar(fontsize = 8, col = "#4a6572"))
+
+invisible(dev.off())
+cat("\n✓ Reporte de revisión guardado en:", normalizePath(archivo_reporte), "\n")
+```
+
+::: callout-tip
+## Siguiente paso
+Si eligió la Ruta B (datos calculados), suba el archivo .csv a su carpeta de
+recepción, como indica el Manual para proveedores de datos. Si MigraMar calculó el indicador por
+usted, recibirá este reporte para su revisión antes de que se publique.
+:::

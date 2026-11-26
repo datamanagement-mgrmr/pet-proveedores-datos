@@ -1,0 +1,6 @@
+/.quarto/
+**/*.quarto_ipynb
+# Copia del ejemplo y resultados de prueba que se crean al generar el anexo
+*.csv
+*.pdf
+*_files/

@@ -1,0 +1,5 @@
+# Genera el anexo HTML del código de R (Herramienta 3) a partir del .qmd de esta carpeta.
+# Se ejecuta con: quarto render codigo
+# El HTML se guarda en ../descargas, que es de donde lo enlaza el sitio.
+project:
+  output-dir: ../descargas
