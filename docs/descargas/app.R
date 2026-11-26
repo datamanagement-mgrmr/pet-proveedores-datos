@@ -145,16 +145,16 @@ calcular_indicador <- function(df_crudo, cfg) {
     df_linea_base <- df_crudo %>% filter(Anio >= anio_inicio_base & Anio <= anio_final_base)
     total_eventos_base <- nrow(df_linea_base)
     aviso("aviso", paste0("Reajuste automático de la línea base: el periodo ", anio_inicio_base, "-",
-                          anio_final_original, " tenía menos de 15 eventos. Nueva línea base: ",
+                          anio_final_original, " tenía menos de 15 réplicas independientes. Nueva línea base: ",
                           anio_inicio_base, "-", anio_final_base, "."))
   } else {
     aviso("ok", paste0("Línea base válida (", anio_inicio_base, "-", anio_final_base, "): ",
-                       total_eventos_base, " eventos acumulados."))
+                       total_eventos_base, " réplicas independientes acumuladas."))
   }
   eventos_por_anio <- df_linea_base %>% count(Anio, name = "n_eventos")
   bajos <- eventos_por_anio$Anio[eventos_por_anio$n_eventos < 10]
   if (length(bajos) > 0)
-    aviso("aviso", paste0("Años de la línea base con pocos eventos (< 10): ", paste(bajos, collapse = ", "),
+    aviso("aviso", paste0("Años de la línea base con pocas réplicas independientes (< 10): ", paste(bajos, collapse = ", "),
                           ". Es solo informativo."))
 
   # III.B Estadísticas descriptivas de la línea base (referencia)
@@ -203,21 +203,26 @@ calcular_indicador <- function(df_crudo, cfg) {
   indicador_anual$Categoria <- factor(indicador_anual$Categoria, levels = niveles_avp)
 
   # IV. Tabla final con el formato de la hoja datos_calculados (Herramienta 2)
-  # Cada celda de año: observado;dispersión;predicho (predicho = NA sin modelo), 3 decimales
-  f3 <- function(x) ifelse(is.na(x), "NA", sprintf("%.3f", x))
+  # Cada celda de año: observado;dispersión;predicho (predicho = NA sin modelo), 2 decimales
+  f3 <- function(x) ifelse(is.na(x), "NA", sprintf("%.2f", x))
   valores_anchos <- indicador_anual %>%
     mutate(Celda = paste(f3(Valor_Anual), f3(Dispersion), "NA", sep = ";")) %>%
     select(Anio, Celda) %>%
     pivot_wider(names_from = Anio, values_from = Celda)
+  # Columnas de la hoja datos_calculados (Herramienta 2, versión de noviembre 2026).
+  # Se mantienen las columnas del modelo estadístico (GAMM) para cuando se incorpore:
+  # por ahora van vacías y el valor predicho de cada año es NA.
   tabla_final <- data.frame(
     species = cfg$meta_species, indicator = cfg$meta_indicator, area = cfg$meta_area,
-    metric_type = "observed_AVP", dispersion_type = dispersion_type,
+    analysis = "Observado", dispersion_type = dispersion_type,
     baseline_years = paste0(anio_inicio_base, "-", anio_final_base),
-    P10 = round(P10, 3), P25 = round(P25, 3), P50 = round(P50, 3), P75 = round(P75, 3),
+    P10 = round(P10, 2), P25 = round(P25, 2), P50 = round(P50, 2), P75 = round(P75, 2),
     check.names = FALSE) %>%
     bind_cols(valores_anchos) %>%
-    mutate(data_owner = meta_dueno, provider_contact = meta_contacto,
-           provider_institution = meta_institucion, additional_contact_info = meta_web)
+    mutate(significance_p = NA, Estimated_initial_value = NA,
+           Estimated_final_value = NA, Net_percent_range = NA,
+           data_owner = meta_institucion, data_owner_website = meta_web,
+           contact_name = meta_dueno, contact_email = meta_contacto)
 
   r <- list(ok = TRUE, mensajes = msj, anual = indicador_anual, estadisticas = estadisticas,
        P10 = P10, P25 = P25, P50 = P50, P75 = P75,
@@ -225,8 +230,10 @@ calcular_indicador <- function(df_crudo, cfg) {
        tabla_final = tabla_final,
        meta_dueno = meta_dueno, meta_contacto = meta_contacto,
        meta_institucion = meta_institucion, meta_web = meta_web)
-  # Columna 'comments' de la Plantilla de datos calculados: texto "Especificaciones y fuente del dato"
-  r$tabla_final$comments <- texto_fuente(r, cfg)
+  # 'description': texto público (botón "info" de la plataforma).
+  # 'downloadable': la define MigraMar, por eso va vacía.
+  r$tabla_final$description  <- texto_fuente(r, cfg)
+  r$tabla_final$downloadable <- NA
   r
 }
 
@@ -240,7 +247,7 @@ grafico_avp <- function(r, cfg) {
     scale_color_manual(values = colores_avp, drop = FALSE) +
     scale_x_continuous(breaks = r$anual$Anio) +
     labs(subtitle = "Línea azul = P50 (mediana de la línea base); líneas grises punteadas = P25 y P75",
-         x = NULL, y = paste0(cfg$tipo_metrica_txt, " anual (", cfg$unidad, ")"), color = "Categoría AVP") +
+         x = NULL, y = paste0(cfg$eje_y, " (", cfg$unidad, ")"), color = "Categoría AVP") +
     theme_minimal(base_size = 13) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "bottom",
           panel.grid.minor = element_blank())
@@ -256,7 +263,7 @@ grafico_marine_manager <- function(r, cfg) {
     geom_point(aes(color = Categoria), size = 3) +
     scale_color_manual(values = colores_avp, drop = FALSE, name = NULL) +
     scale_x_continuous(breaks = r$anual$Anio) +
-    labs(x = NULL, y = cfg$unidad) +
+    labs(x = NULL, y = cfg$eje_y) +
     theme_minimal(base_size = 10) +
     theme(legend.position = "bottom", panel.grid.minor = element_blank(),
           axis.text.x = element_text(angle = 45, hjust = 1))
@@ -273,10 +280,10 @@ texto_dispersion <- function(cfg) {
 texto_fuente <- function(r, cfg) {
   paste0("Este indicador se calcula con datos tomados en ", cfg$sitios, " (", cfg$area_txt, "), durante ",
          cfg$estacion, ", entre ", min(r$anual$Anio), " y ", max(r$anual$Anio), ". ",
-         texto_dispersion(cfg), " ",
+         texto_dispersion(cfg), " Los valores se expresan en ", cfg$unidad, ". ",
          "Fuente del dato: ", r$meta_institucion,
          if (!is.na(r$meta_web)) paste0(" (", r$meta_web, ")") else "", ". ",
-         "Punto de contacto: ", r$meta_dueno, " (", r$meta_contacto, ").")
+         "Punto de contacto: ", r$meta_dueno, ".")
 }
 texto_avp <- function(r, cfg) {
   paste0("La línea base (", r$base_inicio, "-", r$base_fin, ") define los umbrales del ",
@@ -343,7 +350,8 @@ crear_reporte_pdf <- function(archivo, r, cfg) {
     paste0("Línea base: ", r$base_inicio, "-", r$base_fin),
     paste0("Estadístico anual: ", cfg$tipo_metrica_txt, " (", cfg$unidad, ") · Interpretación: ", cfg$tipo_interpretacion),
     paste0("Propietario del dato: ", r$meta_institucion, if (!is.na(r$meta_web)) paste0(" (", r$meta_web, ")") else ""),
-    paste0("Punto de contacto: ", r$meta_dueno, " (", r$meta_contacto, ")"))
+    paste0("Punto de contacto: ", r$meta_dueno),
+    "Correo de contacto: se guarda para uso interno de MigraMar y no se publica.")
   # El bloque empieza en la página 1 solo si cabe la ficha completa; si no, empieza en una página nueva
   espacio_ficha <- 0.02 + 0.06 + 0.05 + length(ficha) * alto_linea(9.5)
   if (y_pos - espacio_ficha < 0.035) {
@@ -389,7 +397,7 @@ crear_reporte_pdf <- function(archivo, r, cfg) {
                                            just = c("left", "top"), gp = gpar(fontsize = 9))
   }
   y_pos <- y_pos - (nrow(r$anual) + 1) * alto - 0.01
-  grid.text("RIC = rango intercuartílico (P75 - P25 de las réplicas del año) · DE = desviación estándar",
+  grid.text("Valor anual = mediana, promedio o valor directo según su indicador · RIC = rango intercuartílico (P75 - P25 de las réplicas del año) · DE = desviación estándar",
             x = 0.07, y = y_pos, just = c("left", "top"), gp = gpar(fontsize = 8, col = "#4a6572"))
 }
 
@@ -453,7 +461,7 @@ ui <- page_navbar(
           tags$h6(class = "mt-3", "2. Punto de contacto"),
           selectInput("col_dueno", "Nombre del punto de contacto", choices = NULL),
           conditionalPanel("input.col_dueno == '__escribir__'", textInput("dato_dueno", NULL, placeholder = "Ej. Juana Pérez")),
-          selectInput("col_contacto", "Correo del punto de contacto", choices = NULL),
+          selectInput("col_contacto", "Correo del punto de contacto (uso interno, no se publica)", choices = NULL),
           conditionalPanel("input.col_contacto == '__escribir__'", textInput("dato_contacto", NULL, placeholder = "Ej. juana.perez@correo.org"))
         )
       )
@@ -464,28 +472,30 @@ ui <- page_navbar(
   nav_panel("3. Indicador",
     div(class = "paso-intro",
       h4("Paso 3 · Configure su indicador"),
-      p("Use la Referencia metodológica (Herramienta 1, Parte 2) para elegir el estadístico, la interpretación y la línea base."),
+      p(tags$b("*"), " Según la Referencia metodológica (Herramienta 1)  ·  ",
+        tags$b("**"), " Según lo acordado con MigraMar"),
       layout_columns(col_widths = c(6, 6),
-        card(card_header("Especie, indicador y área (Catálogo de vocabulario)"),
+                     card(card_header("Especie, indicador y área (listas del Catálogo, Herramienta 4)"),
           uiOutput("ui_catalogo")
         ),
         card(card_header("Parámetros metodológicos"),
-          selectInput("tipo_metrica", "Estadístico anual",
+          selectInput("tipo_metrica", "Estadístico anual*",
                       c("Mediana" = "mediana", "Promedio" = "promedio", "Valor directo" = "valor_directo")),
-          radioButtons("tipo_interpretacion", "Tipo de interpretación",
+          radioButtons("tipo_interpretacion", "Tipo de interpretación*",
                        c("A · valores altos = condición favorable" = "A",
                          "B · valores altos = condición desfavorable" = "B")),
           layout_columns(col_widths = c(6, 6),
-            numericInput("base_inicio", "Línea base: año inicial", value = NA, step = 1),
-            numericInput("base_fin", "Línea base: año final", value = NA, step = 1)),
-          ayuda("Normalmente 5 años. Si no hay suficientes eventos, se amplía sola a 10 años."),
-          textInput("unidad", "Unidad del valor anual", placeholder = "Ej. MaxN/hr")
+            numericInput("base_inicio", "Línea base: año inicial**", value = NA, step = 1),
+            numericInput("base_fin", "Línea base: año final**", value = NA, step = 1)),
+          ayuda("Normalmente 5 años. Si no hay suficientes réplicas, se amplía sola a 10 años."),
+          textInput("unidad", "Unidad de medida de sus datos**", placeholder = "Ej. cm"),
+          ayuda("Ejemplos: cm (longitud) · cm/año (tasa de crecimiento) · ind/m² (densidad) · MaxN/hora (BRUVS) · ind/inmersión (buceo).")
         )
       ),
       card(card_header("Especificaciones del muestreo (aparecerán en Marine Manager)"),
         layout_columns(col_widths = c(6, 6),
-          textInput("sitios", "Sitio(s) de muestreo", placeholder = "Ej. los sitios Manuelita, Dirty Rock y Alcyone"),
-          textInput("estacion", "Estación o época de muestreo", placeholder = "Ej. la época seca (marzo a mayo)")),
+          textInput("sitios", "Sitio(s) centinela específico de muestreo**", placeholder = "Ej. los sitios Manuelita, Dirty Rock y Alcyone"),
+          textInput("estacion", "Estación, época o meses de muestreo**", placeholder = "Ej. la época seca (marzo a mayo)")),
         ayuda("Escríbalos como completarían la frase: “Este indicador se calcula con datos tomados en ___, durante ___”.")
       )
     )
@@ -577,13 +587,13 @@ server <- function(input, output, session) {
     } else {
       esp <- catalogo_rv()$especies
       tagList(
-        selectInput("meta_species", "Especie",
+        selectInput("meta_species", "Especie*",
                     setNames(esp$especie_id, paste0(esp$label_es, " (", esp$label_scientific, ")"))),
-        selectInput("codigo_indicador", "Indicador", choices = NULL),
-        selectizeInput("meta_area", "Área de estudio",
+        selectInput("codigo_indicador", "Indicador*", choices = NULL),
+        selectizeInput("meta_area", "Área de estudio**",
                        setNames(catalogo_rv()$areas$area_id, catalogo_rv()$areas$label_es),
                        options = list(placeholder = "Escriba para buscar…")),
-        ayuda("¿Su área no aparece? Comuníquese con el enlace técnico para agregarla al catálogo.")
+        ayuda("Busque el área, playa de anidación, bioregión o mar territorial. ¿Su área no aparece? Comuníquese con el enlace técnico para agregarla al catálogo.")
       )
     }
   })
@@ -620,6 +630,7 @@ server <- function(input, output, session) {
       codigo = codigo,
       especie_txt = lbl("especies", "especie_id", input$meta_species, "label_es"),
       indicador_txt = if (is.null(catalogo_rv())) meta_indicator else lbl("indicadores", "codigo_corto", codigo, "indicador_es"),
+      eje_y = { e <- lbl("indicadores", "codigo_corto", codigo, "eje_y_es"); if (is.null(catalogo_rv()) || is.na(e)) input$unidad else e },
       area_txt = lbl("areas", "area_id", input$meta_area, "label_es"),
       tipo_metrica = input$tipo_metrica,
       tipo_metrica_txt = c(mediana = "Mediana", promedio = "Promedio", valor_directo = "Valor directo")[[input$tipo_metrica]],
@@ -637,7 +648,7 @@ server <- function(input, output, session) {
       if (!nzchar(cfg$meta_species %||% "") || !nzchar(cfg$meta_indicator %||% "") || !nzchar(cfg$meta_area %||% "")) "especie, indicador y área (paso 3)",
       if (!nzchar(cfg$codigo %||% "")) "el código corto del indicador (paso 3)",
       if (is.na(cfg$base_inicio) || is.na(cfg$base_fin)) "los años de la línea base (paso 3)",
-      if (!nzchar(trimws(cfg$unidad))) "la unidad del valor anual (paso 3)",
+      if (!nzchar(trimws(cfg$unidad))) "la unidad de medida de sus datos (paso 3)",
       if (!nzchar(trimws(cfg$sitios)) || !nzchar(trimws(cfg$estacion))) "los sitios y la época de muestreo (paso 3)")
     if (length(faltan)) return(list(ok = FALSE, mensajes = list(list(tipo = "error",
                           texto = paste0("Falta completar: ", paste(faltan, collapse = "; "), ".")))))
